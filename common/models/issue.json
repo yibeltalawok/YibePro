@@ -1,0 +1,80 @@
+{
+  "name": "Issue",
+  "plural": "Issues",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "issueCode": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "issueDate": {
+      "type": "string"
+    },
+    "approvedDate": {
+      "type": "string"
+    },
+    "items": {
+      "type": []
+    },
+    "issueSignature": {
+      "type": "string"
+    },
+    "storeAdminSignature": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "inventory": {
+      "type": "belongsTo",
+      "model": "Invenotry",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "issuedBy": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "approvedBy": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

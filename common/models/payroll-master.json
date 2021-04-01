@@ -1,0 +1,58 @@
+{
+  "name": "PayrollMaster",
+  "plural": "PayrollMasters",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "remainingAl": {
+      "type": "string",
+      "default": "0"
+    },
+    "payback": {
+      "type": "string",
+      "default": "0"
+    },
+    "advancedRecievable": {
+      "type": "string"
+    },
+    "penality": {
+      "type": "string"
+    },
+    "miscPayment": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "overtime": {
+      "type": "hasMany",
+      "model": "OverTime",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

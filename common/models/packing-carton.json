@@ -1,0 +1,41 @@
+{
+  "name": "PackingCarton",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "createdDate": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "string"
+    },
+    "cartonNo": {
+      "type": "string"
+    },
+    "status": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "packedIns": {
+      "type": "hasMany",
+      "model": "PackedIn",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

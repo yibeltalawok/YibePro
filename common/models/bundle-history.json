@@ -1,0 +1,39 @@
+{
+  "name": "BundleHistory",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "oldStatus": {
+      "type": "string",
+      "required": true
+    },
+    "newStatus": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "lineNumber": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "ScannedOrderStatus": {
+      "type": "belongsTo",
+      "model": "ScannedOrderStatus",
+      "foreignKey": "scannedOrderStatusId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

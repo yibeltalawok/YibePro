@@ -1,0 +1,57 @@
+{
+  "name": "Performance",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "date"
+    },
+    "day": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "line": {
+      "type": "string"
+    },
+    "value": {
+      "type": "number"
+    },
+    "efficency": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "jobs": {
+      "type": "belongsTo",
+      "model": "Job",
+      "foreignKey": "jobId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "employees": {
+      "type": "hasAndBelongsToMany",
+      "model": "Employee",
+      "foreignKey": "employeeId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

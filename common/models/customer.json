@@ -1,0 +1,57 @@
+{
+  "name": "Customer",
+  "plural": "Customeres",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "customerCode": {
+      "type": "string"
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "postalcode": {
+      "type": "string"
+    },
+    "location": {
+      "type": [
+        "number"
+      ]
+    },
+    "phoneNumber": {
+      "type": "string",
+      "default": "noimage"
+    },
+    "imagePath": {
+      "type": "string",
+      "default": "noimage"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "purchased": {
+      "type": "hasMany",
+      "model": "Purchased",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

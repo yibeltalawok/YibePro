@@ -1,0 +1,134 @@
+{
+  "name": "Incentive",
+  "plural": "Incentives",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "day": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "totalPerformance": {
+      "type": "string",
+      "default": "0"
+    },
+    "productionDate": {
+      "type": "date"
+    },
+    "targetPerDay": {
+      "type": "string"
+    },
+    "extraPerDay": {
+      "type": "string"
+    },
+    "directCost": {
+      "type": "string",
+      "default": ""
+    },
+    "indirectCost": {
+      "type": "string",
+      "default": ""
+    },
+    "costPerMinute": {
+      "type": "string",
+      "default": ""
+    },
+    "extraPieceMinute": {
+      "type": "string",
+      "default": ""
+    },
+    "extraPieceCost": {
+      "type": "string",
+      "default": ""
+    },
+    "lineNo": {
+      "type": "string"
+    },
+    "forCompany": {
+      "type": "string",
+      "default": ""
+    },
+    "forEmployee": {
+      "type": "string",
+      "default": ""
+    },
+    "forLine": {
+      "type": "string",
+      "default": ""
+    },
+    "forOperator": {
+      "type": "string",
+      "default": ""
+    },
+    "operator": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "job": {
+      "type": "belongsTo",
+      "model": "Job",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "sam": {
+      "type": "belongsTo",
+      "model": "Sam",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "line": {
+      "type": "belongsTo",
+      "model": "Line",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "incentiveHistory": {
+      "type": "hasMany",
+      "model": "IncentiveHistory",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "employees": {
+      "type": "hasAndBelongsToMany",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

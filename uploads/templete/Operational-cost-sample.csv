@@ -1,0 +1,11 @@
+Date,Narration,Type,Amount
+5/31/2020,sample cost narration 1,Indirect Cost,524625.84
+7/12/2010,sample cost narration 2,Direct Cost,7805.84
+5/31/2020,sample cost narration 3,Indirect Cost,3564625.84
+,,,
+,,,
+,,,
+,Note ,,
+,1. type property should be either Indirect Cost or Direct Cost ( Please mind your spelling ),,
+,"2. Please do not use comma ( , ) in your text instead you can use ( - / _ )",,
+,3. keep the date format as it is ( MM/DD/YYYY),,

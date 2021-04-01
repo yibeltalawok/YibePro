@@ -1,0 +1,64 @@
+{
+  "name": "ProductionHistory",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "orderId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ScannedOrderStatus": {
+      "type": "belongsTo",
+      "model": "ScannedOrderStatus",
+      "foreignKey": "scannedOrderStatusId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Job": {
+      "type": "belongsTo",
+      "model": "Job",
+      "foreignKey": "jobId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Operation": {
+      "type": "belongsTo",
+      "model": "Operation",
+      "foreignKey": "operationId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "employeeId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

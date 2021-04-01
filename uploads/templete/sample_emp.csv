@@ -1,0 +1,9 @@
+ID no,Full Name ,Phone Number,Gender,Joining Date,Position,Department,Sub Department,Salary,Response Allowance,Home Allowance,Absent Incentive,Transport Allowance,Cost Sharing,Iron Incentive,Food allowance,Mobile Allowance,Position allowance,Account No
+ADERM0001,Ava Logan Liam,955595959,F,17/02/2020,General Manager,Administration,,9000,,,,,,,,,,1.00E+12
+ADERM0002,Noah William Mason,943169099,M,17/08/2020,Operation Manager,Operation,,1000,,100,,,,,,,,1.00E+12
+ADERM0003,Abel Dessie Addis,923530046,M,25/12/2010,Finishing Manager,Finishing,,8045,1500,,,,,,,,,1.00E+12
+ADERM0004,Elijah Henry Daniel,918516675,M,16/10/2018,Assistance Sample-Design and Technical Manager,Sample-Design And Technical,,6043,,,,,,,,,,1.00E+12
+,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,
+,Please note,,Do not put comma in any column use / or -,,,,,,,,,,,,,,,
+,,,The date format must be like YYYY/MM/DD,,,,,,,,,,,,,,,

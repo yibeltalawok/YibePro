@@ -1,0 +1,44 @@
+{
+  "name": "CostPerSamHistory",
+  "plural": "CostPerSamHistories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "date"
+    },
+    "month": {
+      "type": "string"
+    },
+    "mName": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "totalSamProduced": {
+      "type": "string",
+      "default": "0"
+    },
+    "operationalCost": {
+      "type": "string",
+      "default": "0"
+    },
+    "costPerSam": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

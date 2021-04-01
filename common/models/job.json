@@ -1,0 +1,108 @@
+{
+  "name": "Job",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "line": {
+      "type": "string",
+      "default": "0"
+    },
+    "from": {
+      "type": "string",
+      "default": "02:30"
+    },
+    "to": {
+      "type": "string",
+      "default": "11:30"
+    },
+    "status": {
+      "type": "boolean",
+      "default": false
+    },
+    "mp": {
+      "type": "string",
+      "default": "0"
+    },
+    "progress": {
+      "type": "string",
+      "default": "done"
+    },
+    "amountDone": {
+      "type": "string",
+      "default": "0"
+    },
+    "allowGroup": {
+      "type": "string",
+      "default": "yes"
+    },
+    "allowIndividual": {
+      "type": "string",
+      "default": "yes"
+    },
+    "perf": {
+      "type": "string",
+      "default": "0"
+    },
+    "done": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "operation": {
+      "type": "belongsTo",
+      "model": "Operation",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "performance": {
+      "type": "hasMany",
+      "model": "performance",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "lines": {
+      "type": "belongsTo",
+      "model": "Line",
+      "foreignKey": "lineId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ProductionHistory": {
+      "type": "hasMany",
+      "model": "ProductionHistory",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

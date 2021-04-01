@@ -1,0 +1,32 @@
+{
+  "name": "IncentiveSlabe",
+  "plural": "IncentiveSlabes",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "from": {
+      "type": "string",
+      "default": "0"
+    },
+    "to": {
+      "type": "string",
+      "default": "0"
+    },
+    "percent": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

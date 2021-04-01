@@ -1,0 +1,62 @@
+{
+  "name": "IncentiveSummary",
+  "plural": "IncentiveSummaries",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "month": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "line": {
+      "type": "string"
+    },
+    "ttlMinEarned": {
+      "type": "string"
+    },
+    "ttlEarning": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "idno": {
+      "type": "string"
+    },
+    "performance": {
+      "type": "string"
+    },
+    "discipline": {
+      "type": "string"
+    },
+    "quality": {
+      "type": "string"
+    },
+    "cummulative": {
+      "type": "string"
+    },
+    "individual": {
+      "type": "string"
+    },
+    "group": {
+      "type": "string"
+    },
+    "total": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

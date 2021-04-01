@@ -1,0 +1,49 @@
+{
+  "name": "supplier",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "supplierCode": {
+      "type": "string"
+    },
+    "supplierName": {
+      "type": "string"
+    },
+    "taxRate": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "location": {
+      "type": [
+        "number"
+      ]
+    },
+    "states": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    }
+
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

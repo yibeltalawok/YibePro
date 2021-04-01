@@ -1,0 +1,35 @@
+{
+  "name": "Category",
+  "plural": "Categories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "categoryName": {
+      "type": "string"
+    },
+    "createdBy": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "purchased": {
+      "type": "hasMany",
+      "model": "Purchased",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

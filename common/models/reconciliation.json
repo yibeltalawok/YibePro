@@ -1,0 +1,52 @@
+{
+  "name": "Reconciliation",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "totalCutQty": {
+      "type": "string"
+    },
+    "fabricConsumption": {
+      "type": "string"
+    },
+    "totalPlannedFabric": {
+      "type": "string"
+    },
+    "actualFabricConsumed": {
+      "type": "number"
+    },
+    "extra": {
+      "type": "number"
+    },
+    "actualShipment": {
+      "type": "number"
+    },
+    "plannedFabricConsumed": {
+      "type": "string"
+    },
+    "rejectedPiece": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

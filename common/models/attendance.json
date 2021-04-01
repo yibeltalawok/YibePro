@@ -1,0 +1,51 @@
+{
+  "name": "Attendance",
+  "plural": "Attendances",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "dateAttended": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "lateMinutes": {
+      "type": "string",
+      "default": "0"
+    },
+    "slValue": {
+      "type": "string",
+      "default": "1"
+    },
+    "department": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

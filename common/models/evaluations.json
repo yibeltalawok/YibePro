@@ -1,0 +1,94 @@
+{
+  "name": "evaluations",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "linenum": {
+      "type": "number",
+      "required": true
+    },
+    "size": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string"
+    },
+    "imethod": {
+      "type": "string",
+      "required": true
+    },
+    "ilevel": {
+      "type": "string",
+      "required": true
+    },
+    "lotquantity": {
+      "type": "number",
+      "required": true
+    },
+    "aqllvel": {
+      "type": "string"
+    },
+    "samplesize": {
+      "type": "string"
+    },
+    "quantitychecked": {
+      "type": "number"
+    },
+    "garmentpassed": {
+      "type": "number"
+    },
+    "garmentfailed": {
+      "type": "number"
+    },
+    "garmentaltered": {
+      "type": "number"
+    },
+    "garmentrechecked": {
+      "type": "number"
+    },
+    "totaldefects": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "OperationBulletins": {
+      "type": "belongsTo",
+      "model": "OperationBulletin",
+      "foreignKey": "OperationBulletinId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "scannedOrderStatus": {
+      "type": "belongsTo",
+      "model": "ScannedOrderStatus",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "singleevaluations": {
+      "type": "hasMany",
+      "model": "singleevaluations",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

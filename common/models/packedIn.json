@@ -1,0 +1,61 @@
+{
+  "name": "PackedIn",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": false
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "createdAt": {
+      "type": "date",
+      "defaul": "Not Specified "
+    },
+    "color": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    },
+    "bundleNo": {
+      "type": "string"
+    },
+    "bQty": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "packingCarton": {
+      "type": "belongsTo",
+      "model": "PackingCarton",
+      "foreignKey": ""
+    },
+    "packingList": {
+      "type": "belongsTo",
+      "model": "packingList",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

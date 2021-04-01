@@ -1,0 +1,30 @@
+{
+  "name": "WorkDay",
+  "plural": "WorkDays",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "day": {
+      "type": "date"
+    },
+    "month": {
+      "type": "string"
+    },
+    "noDays": {
+      "type": "string",
+      "default": "30"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

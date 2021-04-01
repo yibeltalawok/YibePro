@@ -1,0 +1,77 @@
+{
+  "name": "Machine",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "serialNumber": {
+      "type": "string"
+    },
+    "make": {
+      "type": "string"
+    },
+    "stock": {
+      "type": "number",
+      "default": 0
+    },
+    "damaged": {
+      "type": "number",
+      "default": 0
+    },
+    "modelNumber": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "machineStatus": {
+      "type": "number",
+      "default": 0
+    },
+    "stockrecord": {
+      "type": [
+        {
+          "day": {
+            "type": "string"
+          },
+          "openingStock": {
+            "type": "number"
+          },
+          "assigned": {
+            "type": "number"
+          },
+          "purchased": {
+            "type": "number"
+          },
+          "closingStock": {
+            "type": "number"
+          }
+        }
+      ],
+      "default": []
+    },
+    "color": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "operations": {
+      "type": "hasMany",
+      "model": "Operation",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

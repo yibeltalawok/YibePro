@@ -1,0 +1,63 @@
+{
+  "name": "LostTime",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "recordedtime": {
+      "type": "string"
+    },
+    "iotId": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "reasonid": {
+      "type": "number",
+      "required": true
+    },
+    "reasonlabel": {
+      "type": "string"
+    },
+    "linenumber": {
+      "type": "number"
+    },
+    "totalmins": {
+      "type": "number",
+      "required": true
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "jobs": {
+      "type": "belongsTo",
+      "model": "Job",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

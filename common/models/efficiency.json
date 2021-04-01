@@ -1,0 +1,44 @@
+{
+  "name": "efficiency",
+  "plural": "efficiencies",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "date"
+    },
+    "line": {
+      "type": "number"
+    },
+    "mpAllocated": {
+      "type": "number"
+    },
+    "sam": {
+      "type": "number"
+    },
+    "totalso": {
+      "type": "number"
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "totalWorkingTime": {
+      "type": "string"
+    },
+    "eff": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

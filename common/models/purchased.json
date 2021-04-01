@@ -1,0 +1,44 @@
+{
+  "name": "Purchased",
+  "plural": "Purchased",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "purchaseDate": {
+      "type": "string"
+    },
+    "approvedBy": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "totalQuantity": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "inventory": {
+      "type": "belongsTo",
+      "model": "Invenotry",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

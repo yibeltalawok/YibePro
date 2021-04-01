@@ -1,0 +1,80 @@
+{
+  "name": "Invenotry",
+  "plural": "Inventories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "inventoryName": {
+      "type": "string"
+    },
+    "stock": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "imagePath": {
+      "type": "string",
+      "default": "inventory default image"
+    },
+    "sellable": {
+      "type": "boolean"
+    },
+    "obsolete": {
+      "type": "boolean",
+      "default": false
+    },
+    "neverDiminshing": {
+      "type": "boolean",
+      "default": false
+    },
+    "component": {
+      "type": "boolean",
+      "default": false
+    },
+    "expirable": {
+      "type": "boolean",
+      "default": false
+    },
+    "assempledProduct": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": ""
+    },
+    "createdBy": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": ""
+    },
+    "item": {
+      "type": "hasMany",
+      "model": "Item",
+      "foreignKey": ""
+    },
+    "purchased": {
+      "type": "hasMany",
+      "model": "Purchased",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

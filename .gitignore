@@ -1,0 +1,12 @@
+node_modules
+/uploads/inventory/
+/uploads/operation/
+/uploads/orders/
+/uploads/profilePictures/
+/uploads/qrtoprint/
+/uploads/defectImages/
+/uploads/customer/
+/uploads/attachment
+/uploads/idPictures
+/uploads/staticStyles
+/uploads/supplier

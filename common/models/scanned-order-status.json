@@ -1,0 +1,82 @@
+{
+  "name": "ScannedOrderStatus",
+  "plural": "ScannedOrderStatuses",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "color": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "line": {
+      "type": "string"
+    },
+    "bundleNo": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "orderNumber": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "checked": {
+      "type": "boolean"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "OrderId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+
+    "BCSheet": {
+      "type": "belongsTo",
+      "model": "BCSheet",
+      "foreignKey": "bCSheetId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+
+    "BundleHistory": {
+      "type": "hasMany",
+      "model": "BundleHistory",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "evaluations": {
+      "type": "hasOne",
+      "model": "evaluations",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

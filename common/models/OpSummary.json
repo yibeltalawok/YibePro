@@ -1,0 +1,79 @@
+{
+  "name": "OpSummary",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "operationId": {
+      "type": "string"
+    },
+    "product": {
+      "type": "string"
+    },
+    "outputFullEff": {
+      "type": "string"
+    },
+    "outputPiecePerDay": {
+      "type": "string"
+    },
+    "targetEff": {
+      "type": "string"
+    },
+    "lineEff": {
+      "type": "string"
+    },
+    "noOfWorkplaces": {
+      "type": "number"
+    },
+    "noOfInspectationStationsRqrd": {
+      "type": "number"
+    },
+    "lastDateOfRevision": {
+      "type": "string"
+    },
+    "minutesPerDay": {
+      "type": "number"
+    },
+    "totalManpowerAlloted": {
+      "type": "number"
+    },
+    "noOfSewingOperators": {
+      "type": "number"
+    },
+    "noOfSewingMachineRqrd": {
+      "type": "number"
+    },
+    "noOfHelperWorkstationsRqrd": {
+      "type": "number"
+    },
+    "totalSewingSAM": {
+      "type": "number"
+    },
+    "totalSAM": {
+      "type": "number"
+    },
+    "totalEstSAM": {
+      "type": "number"
+    },
+    "peicePerOppDay": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "operation": {
+      "type": "belongsTo",
+      "model": "Operation",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

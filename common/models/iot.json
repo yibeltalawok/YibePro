@@ -1,0 +1,36 @@
+{
+  "name": "iot",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "iotid": {
+      "type": "string"
+    },
+    "asigned": {
+      "type": "boolean",
+      "default": false
+    },
+    "line": {
+      "type": "string"
+    },
+    "lastmodified": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

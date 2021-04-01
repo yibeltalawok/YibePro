@@ -1,0 +1,103 @@
+{
+  "name": "Item",
+  "plural": "Items",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "itemNumber": {
+      "type": "string"
+    },
+    "binCardNumber": {
+      "type": "string"
+    },
+    "invoiceNo": {
+      "type": "string"
+    },
+    "itemName": {
+      "type": "string"
+    },
+    "materialType": {
+      "type": "string"
+    },
+    "totalQuantity": {
+      "type": "string"
+    },
+    "unitOfMeasure": {
+      "type": "string"
+    },
+    "materialStatus": {
+      "type": "string"
+    },
+    "GRNno": {
+      "type": "string"
+    },
+    "unitPrice": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "purchasedDate": {
+      "type": "string"
+    },
+    " inHouseDate": {
+      "type": "string"
+    },
+    "expiryDate": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "totalPrice": {
+      "type": "string"
+    },
+    "poNo": {
+      "type": "string"
+    },
+    "issueDept": {
+      "type": "string"
+    },
+    "issueQTY": {
+      "type": "string"
+    },
+    "itemCatagory": {
+      "type": "string"
+    },
+    "balance": {
+      "type": "string"
+    },
+    "remarks": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "inventory": {
+      "type": "belongsTo",
+      "model": "Invenotry",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "supplier": {
+      "type": "belongsTo",
+      "model": "supplier",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

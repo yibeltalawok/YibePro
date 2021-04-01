@@ -1,0 +1,57 @@
+{
+  "name": "Sam",
+  "plural": "Sams",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "samCode": {
+      "type": "string"
+    },
+    "styleName": {
+      "type": "string"
+    },
+    "styleNumber": {
+      "type": "string"
+    },
+    "sam": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "operation": {
+      "type": "belongsTo",
+      "model": "Operation",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "order": {
+      "type": "hasMany",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "incentive": {
+      "type": "hasMany",
+      "model": "Incentive",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

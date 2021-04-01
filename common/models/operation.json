@@ -1,0 +1,112 @@
+{
+  "name": "Operation",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "sr": {
+      "type": "string"
+    },
+    "operationName": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string"
+    },
+    "samCode": {
+      "type": "string"
+    },
+    "sam": {
+      "type": "string"
+    },
+    "folder": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "outputPerHour": {
+      "type": "string",
+      "default": 0
+    },
+    "mpRqrd": {
+      "type": "string",
+      "default": 0
+    },
+    "mcAllocated": {
+      "type": "string",
+      "default": 0
+    },
+    "mpAllocated": {
+      "type": "string",
+      "default": 0
+    },
+    "sewingOprAlltd": {
+      "type": "string",
+      "default": 0
+    },
+    "remark": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "opSummaries": {
+      "type": "hasMany",
+      "model": "OpSummary",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "machine": {
+      "type": "belongsTo",
+      "model": "Machine",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "jobs": {
+      "type": "hasMany",
+      "model": "Job",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "oprBltns": {
+      "type": "belongsTo",
+      "model": "OperationBulletin",
+      "foreignKey": "oprBltnId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "oprBltn": {
+      "type": "hasMany",
+      "model": "OperationBulletin",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ProductionHistory": {
+      "type": "hasMany",
+      "model": "ProductionHistory",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

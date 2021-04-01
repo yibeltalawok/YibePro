@@ -1,0 +1,88 @@
+{
+  "name": "TimeAction",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "recievingDate": {
+      "type": "string"
+    },
+    "confirmationDate": {
+      "type": "string"
+    },
+    "startPlannedCutDate": {
+      "type": "string"
+    },
+    "startActualCutDate": {
+      "type": "string"
+    },
+    "endPlannedCutDate": {
+      "type": "string"
+    },
+    "endActualCutDate": {
+      "type": "string"
+    },
+    "plannedSewingStart": {
+      "type": "string"
+    },
+    "actualSewingStart": {
+      "type": "string"
+    },
+    "plannedSewingEnd": {
+      "type": "string"
+    },
+    "actualSewingEnd": {
+      "type": "string"
+    },
+    "plannedFinishStart": {
+      "type": "string"
+    },
+    "actualFinishStart": {
+      "type": "string"
+    },
+    "plannedFinishEnd": {
+      "type": "string"
+    },
+    "actualFinishEnd": {
+      "type": "string"
+    },
+    "plannedPackingStart": {
+      "type": "string"
+    },
+    "actualPackedStart": {
+      "type": "string"
+    },
+    "plannedPackingEnd": {
+      "type": "string"
+    },
+    "actualPackedEnd": {
+      "type": "string"
+    },
+    "plannedShippingDate": {
+      "type": "string"
+    },
+    "actualShipedDate": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

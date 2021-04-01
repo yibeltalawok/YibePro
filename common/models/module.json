@@ -1,0 +1,42 @@
+{
+  "name": "module",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "modulename": {
+      "type": "string",
+      "required": true
+    },
+    "imageurl": {
+      "type": "string"
+    },
+    "defects": {
+      "type": [
+        "string"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "default": "pendding"
+    },
+    "date": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "OperationBulletins": {
+      "type": "belongsTo",
+      "model": "OperationBulletin",
+      "foreignKey": "OperationBulletinId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

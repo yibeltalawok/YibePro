@@ -1,0 +1,32 @@
+{
+  "name": "TaxSlab",
+  "plural": "TaxSlabs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "initial": {
+      "type": "number"
+    },
+    "end": {
+      "type": "number"
+    },
+    "deduction": {
+      "type": "number"
+    },
+    "extraDeduction": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

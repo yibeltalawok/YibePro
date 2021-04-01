@@ -1,0 +1,106 @@
+{
+  "name": "OperationBulletin",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "product": {
+      "type": "string"
+    },
+    "outputAtFulEfficiency": {
+      "type": "string",
+      "default": 0
+    },
+    "outputPiecesPerDay": {
+      "type": "string",
+      "default": 0
+    },
+    "targetEfficiency": {
+      "type": "string",
+      "default": 0
+    },
+    "lastDateOfRevision": {
+      "type": "date"
+    },
+    "minutesPerDay": {
+      "type": "string",
+      "default": 0
+    },
+    "lineEfficiency": {
+      "type": "string",
+      "default": 0
+    },
+    "noOfWorkplaces": {
+      "type": "string",
+      "default": 0
+    },
+    "noOfInspectionStations": {
+      "type": "string",
+      "default": 0
+    },
+    "totalManPowerAlloted": {
+      "type": "string",
+      "default": 0
+    },
+    "noOfSewingOperators": {
+      "type": "string",
+      "default": 0
+    },
+    "noOfSewingMachine": {
+      "type": "string",
+      "default": 0
+    },
+    "noOfHelperWorkstations": {
+      "type": "string",
+      "default": 0
+    },
+    "totalSewingSam": {
+      "type": "string",
+      "default": 0
+    },
+    "totalSam": {
+      "type": "string",
+      "default": 0
+    },
+    "piecesPerOprPerDay": {
+      "type": "string",
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "operations": {
+      "type": "hasAndBelongsToMany",
+      "model": "Operation",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "modules": {
+      "type": "hasMany",
+      "model": "module",
+      "foreignKey": "OperationBulletinId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

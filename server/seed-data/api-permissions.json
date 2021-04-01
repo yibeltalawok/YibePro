@@ -1,0 +1,56 @@
+[
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserRole",
+    "method": "find"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserRole",
+    "method": "create"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserRole",
+    "method": "deleteById"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserAccount",
+    "method": "find"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserAccount",
+    "method": "updateAccount"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserAccount",
+    "method": "changeUserPassword"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserAccount",
+    "method": "logoutUser"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserAccount",
+    "method": "activateUser"
+  },
+  {
+    "userRoleId": "",
+    "roleName": "Administrator",
+    "model": "UserAccount",
+    "method": "deactivateUser"
+  }
+]

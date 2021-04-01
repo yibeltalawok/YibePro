@@ -1,0 +1,45 @@
+{
+  "name": "pm-api",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "posttest": "npm run lint && nsp check",
+    "dev": "NODE_ENV=development node .",
+    "start": "NODE_ENV=production node .",
+    "watch": "nodemon ."
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.7.2",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "dotenv": "6.1.0",
+    "firebase-admin": "^8.12.1",
+    "helmet": "^3.11.0",
+    "jspdf": "^2.1.1",
+    "loopback": "^2.40.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^5.4.0",
+    "loopback-component-storage": "^3.6.1",
+    "loopback-connector-firestore": "^1.0.7",
+    "loopback-connector-mongodb": "^4.2.0",
+    "loopback-datasource-juggler": "^2.39.0",
+    "loopback-disable-method-mixin": "0.0.1",
+    "loopback-row-count-mixin": "0.1.8",
+    "moment": "^2.29.0",
+    "node-pre-gyp": "^0.15.0",
+    "qrcode": "^1.4.4",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0"
+  },
+  "license": "MIT",
+  "description": "PM-api"
+}

@@ -1,0 +1,295 @@
+{
+  "name": "Employee",
+  "base": "PersistedModel",
+  "strict": true,
+  "idInjection": true,
+  "options": {
+    "validateUpsert": false
+  },
+  "hidden": [
+    "password"
+  ],
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "protected": [
+    "password"
+  ],
+  "properties": {
+    "idno": {
+      "type": "string",
+      "required": true
+    },
+    "incentiveSalary": {
+      "type": "string",
+      "default": "0"
+    },
+    "fullName": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "string"
+    },
+    "positionalAllow": {
+      "type": "string",
+      "default": "0"
+    },
+    "bankAccountNum": {
+      "type": "string"
+    },
+    "mobileAllow": {
+      "type": "number",
+      "default": 0
+    },
+    "foodAllow": {
+      "type": "number",
+      "default": 0
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "string",
+      "required": true
+    },
+    "joiningDate": {
+      "type": "string"
+    },
+    "department": {
+      "type": "string",
+      "required": true
+    },
+    "subDept": {
+      "type": "string"
+    },
+    "salary": {
+      "type": "string",
+      "required": true
+    },
+    "totalSalary": {
+      "type": "string",
+      "default": "0"
+    },
+    "overtime": {
+      "type": "string",
+      "default": "0"
+    },
+    "address": {
+      "type": "string"
+    },
+    "profilePicture": {
+      "type": "string"
+    },
+    "idPicture": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "prfrm": {
+      "type": "string",
+      "default": "0"
+    },
+    "discipline": {
+      "type": "string",
+      "default": "0"
+    },
+    "quality": {
+      "type": "string",
+      "default": "0"
+    },
+    "pay": {
+      "type": "boolean",
+      "default": false
+    },
+    "responseAllow": {
+      "type": "string",
+      "default": "0"
+    },
+    "homeAllow": {
+      "type": "string",
+      "default": "0"
+    },
+    "taxableHomeAllow": {
+      "type": "number",
+      "default": "0"
+    },
+    "nonTaxableHomeAllow": {
+      "type": "number",
+      "default": "0"
+    },
+    "profAllow": {
+      "type": "number",
+      "default": "0"
+    },
+    "taxableProfAllow": {
+      "type": "number",
+      "default": "0"
+    },
+    "nonTaxableProfAllow": {
+      "type": "number",
+      "default": "0"
+    },
+    "absentIncentive": {
+      "type": "string",
+      "default": "0"
+    },
+    "transportPay": {
+      "type": "string",
+      "default": "0"
+    },
+    "costSharing": {
+      "type": "string",
+      "default": "0"
+    },
+    "ironIncentive": {
+      "type": "string",
+      "default": "0"
+    },
+    "labourContribution": {
+      "type": "string",
+      "default": "0"
+    },
+    "womanUnion": {
+      "type": "string",
+      "default": "0"
+    },
+    "creditAssociation": {
+      "type": "string",
+      "default": "0"
+    },
+    "medicationDeduction": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "CustomAccessToken",
+      "foreignKey": "employeeId",
+      "options": {
+        "disableInclude": true
+      }
+    },
+    "userRole": {
+      "type": "belongsTo",
+      "model": "UserRole",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "performance": {
+      "type": "belongsTo",
+      "model": "Performance",
+      "foreignKey": ""
+    },
+    "incentive": {
+      "type": "belongsTo",
+      "model": "Incentive",
+      "foreignKey": ""
+    },
+    "iot": {
+      "type": "belongsTo",
+      "model": "Iot",
+      "foreignKey": ""
+    },
+    "jobs": {
+      "type": "hasMany",
+      "model": "Job",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "attendances": {
+      "type": "hasMany",
+      "model": "Attendance",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ProductionHistory": {
+      "type": "hasMany",
+      "model": "ProductionHistory",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "create"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "create"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "find"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "findById"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "registerUser"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "registerAdmin"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "deleteById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "patchAttributes"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$admin",
+      "permission": "ALLOW",
+      "property": "replaceById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "updatePassword"
+    }
+  ],
+  "methods": {}
+}

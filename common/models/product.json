@@ -1,0 +1,62 @@
+{
+  "name": "product",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "productCode": {
+      "type": "string"
+    },
+    "productName": {
+      "type": "string"
+    },
+    "unitofMeasure": {
+      "type": "string"
+    },
+    "stock": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "warantyperiod": {
+      "type": "string"
+    },
+    "expirable": {
+      "type": "string"
+    },
+    "expiredate": {
+      "type": "string"
+    },
+    "minimumOrderQt": {
+      "type": "string"
+    },
+    "safetyStock": {
+      "type": "string"
+    },
+    "weightPerUnit": {
+      "type": "string"
+    },
+    "standardSellingRate": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "category": {
+      "type": "belongsTo",
+      "model": "Category",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Weightage",
+  "plural": "Weightage",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "performance": {
+      "type": "string",
+      "default": "0"
+    },
+    "discipline": {
+      "type": "string",
+      "default": "0"
+    },
+    "quality": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

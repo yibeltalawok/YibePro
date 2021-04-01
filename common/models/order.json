@@ -1,0 +1,166 @@
+{
+  "name": "Order",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "orderNumber": {
+      "type": "string",
+      "required": true
+    },
+    "styleNumber": {
+      "type": "string"
+    },
+    "styleName": {
+      "type": "string"
+    },
+    "styleDescription": {
+      "type": "string"
+    },
+    "orderQuantity": {
+      "type": "string"
+    },
+    "plannedCutQuantity": {
+      "type": "string"
+    },
+    "extra": {
+      "type": "string"
+    },
+    "orderSizes": {
+      "type": [
+        {
+          "size": {
+            "type": "string"
+          },
+          "ratio": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "sam": {
+      "type": "string"
+    },
+    "producedOrder": {
+      "type": "string",
+      "default": "0"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "poNo": {
+      "type": "string"
+    },
+    "design": {
+      "type": "string"
+    },
+    "data": {
+      "type": [
+        {}
+      ]
+    }
+  },
+  "validations": [],
+  "relations": {
+    "orderReconciliations": {
+      "type": "hasMany",
+      "model": "Reconciliation",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Customer": {
+      "type": "belongsTo",
+      "model": "Customer",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "timeActions": {
+      "type": "hasMany",
+      "model": "TimeAction",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ScannedOrderStatus": {
+      "type": "hasMany",
+      "model": "ScannedOrderStatus",
+      "foreignKey": "OrderId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "order-statuses": {
+      "type": "hasMany",
+      "model": "Order-status",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "incentive": {
+      "type": "hasMany",
+      "model": "Incentive",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "product": {
+      "type": "hasOne",
+      "model": "product",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "operationBulletins": {
+      "type": "hasOne",
+      "model": "OperationBulletin",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "bCSheets": {
+      "type": "hasMany",
+      "model": "BCSheet",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "packingLists": {
+      "type": "hasMany",
+      "model": "packingList",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "packedIns": {
+      "type": "hasMany",
+      "model": "PackedIn",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,272 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../node_modules/loopback-ds-timestamp-mixin",
+      "../node_modules/loopback-softdelete-2-mixin",
+      "../node_modules/loopback-row-count-mixin",
+      "../node_modules/loopback-disable-method-mixin",
+      "../node_modules/loopback-custom-counts-mixin",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "ACL": {
+    "dataSource": "mongo_db",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mongo_db",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "UserAccount": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "CustomAccessToken": {
+    "dataSource": "mongo_db",
+    "public": false
+  },
+  "Role": {
+    "dataSource": "mongo_db",
+    "public": false
+  },
+  "UserRole": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Container": {
+    "dataSource": "storage",
+    "public": true
+  },
+  "Employee": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "BCSheet": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Machine": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Operation": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Sam": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Order": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Incentive": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "TimeAction": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Reconciliation": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Orderstatus": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "efficiency": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Performance": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Job": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "LostTime": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Attendance": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "OperationBulletin": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Line": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Period": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "IncentiveSlabe": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Weightage": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "OperationalCost": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "CostSummary": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "CostPerSamHistory": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "IncentiveShare": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "SalaryMaster": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "TaxSlab": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "PayrollMaster": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "OverTime": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "WorkDay": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "PushNotification": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "packingList": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Email": {
+    "dataSource": "email",
+    "public": true
+  },
+  "ContactUs": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "ScannedOrderStatus": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "PackedIn": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "PackingCarton": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "PendingList": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "WorkHour": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "printqr": {
+    "dataSource": "db",
+    "public": true
+  },
+  "iot": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "IncentiveSummary": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "module": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "defects": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "evaluations": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "singleevaluations": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Category": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Invenotry": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Purchased": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Customer": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Item": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "Issue": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "supplier": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "product": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "BundleHistory": {
+    "dataSource": "mongo_db",
+    "public": true
+  },
+  "ProductionHistory": {
+    "dataSource": "mongo_db",
+    "public": true
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "name": "packingList",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "createdAt": {
+      "type": "string"
+    },
+    "type": {
+      "type": "number"
+    },
+    "heading": {
+      "type": {
+        "shippingMark": {
+          "type": "string"
+        },
+        "codeArticle": {
+          "type": "string"
+        },
+        "talle": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "string"
+        },
+        "styleNumber": {
+          "type": "string"
+        },
+        "orderNumber": {
+          "type": "string"
+        },
+        "orderQuantity": {
+          "type": "string"
+        }
+      }
+    },
+    "data": {
+      "type": [
+        {}
+      ]
+    },
+    "summary": {
+      "type": {}
+    },
+    "totalValues": {
+      "type": [
+        {}
+      ]
+    },
+    "total": {
+      "type": {}
+    }
+  },
+  "validations": [],
+  "relations": {
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "pendingItems": {
+      "type": "hasMany",
+      "model": "PendingItem",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "packedIns": {
+      "type": "hasMany",
+      "model": "PackedIn",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

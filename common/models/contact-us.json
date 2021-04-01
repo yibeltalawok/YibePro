@@ -1,0 +1,46 @@
+{
+  "name": "ContactUs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "sentAt": {
+      "type": "date"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "required": "true"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string",
+      "required": true
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    },
+    "fileName": {
+      "type": "string"
+    },
+    "rootPath": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,115 @@
+{
+  "name": "Orderstatus",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "day": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "cutIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "totalCutIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "cutOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "totalCutOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "sewIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "totalSewIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "sewOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "totalSewOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "finishingIn": {
+      "type": "string"
+    },
+    "totalFinishingIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "finishingOut": {
+      "type": "string"
+    },
+    "totalFinishingOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "packedIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "totalPackedIn": {
+      "type": "string",
+      "default": "0"
+    },
+    "packedOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "totalPackedOut": {
+      "type": "string",
+      "default": "0"
+    },
+    "line": {
+      "type": "string"
+    },
+    "samPerCostHistory": {
+      "type": "string",
+      "default": "0"
+    },
+    "color": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "order": {
+      "type": "belongsTo",
+      "model": "Order",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

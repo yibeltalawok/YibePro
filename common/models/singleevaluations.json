@@ -1,0 +1,66 @@
+{
+  "name": "singleevaluations",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string"
+    },
+    "linenum": {
+      "type": "string"
+    },
+    "minor": {
+      "type": "number"
+    },
+    "major": {
+      "type": "number"
+    },
+    "total": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "OperationBulletins": {
+      "type": "belongsTo",
+      "model": "OperationBulletin",
+      "foreignKey": "OperationBulletinId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "module": {
+      "type": "belongsTo",
+      "model": "module",
+      "foreignKey": "moduleId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "defect": {
+      "type": "belongsTo",
+      "model": "defects",
+      "foreignKey": "defectId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "evaluations": {
+      "type": "belongsTo",
+      "model": "evaluations",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

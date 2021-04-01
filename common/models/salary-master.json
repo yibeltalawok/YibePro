@@ -1,0 +1,61 @@
+{
+  "name": "SalaryMaster",
+  "plural": "SalaryMasteres",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "responseAllow": {
+      "type": "string",
+      "default": "0"
+    },
+    "homeAllow": {
+      "type": "string",
+      "default": "0"
+    },
+    "absentIncentive": {
+      "type": "string",
+      "default": "0"
+    },
+    "transportPay": {
+      "type": "string",
+      "default": "0"
+    },
+    "costSharing": {
+      "type": "string",
+      "default": "0"
+    },
+    "ironIncentive": {
+      "type": "string",
+      "default": "0"
+    },
+    "labourContribution": {
+      "type": "string",
+      "default": "0"
+    },
+    "fPrId": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "employee": {
+      "type": "belongsTo",
+      "model": "Employee",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

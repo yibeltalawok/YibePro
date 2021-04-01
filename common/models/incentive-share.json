@@ -1,0 +1,45 @@
+{
+  "name": "IncentiveShare",
+  "plural": "IncentiveShares",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "day": {
+      "type": "string"
+    },
+    "month": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "forCompany": {
+      "type": "string",
+      "default": "0"
+    },
+    "forEmployee": {
+      "type": "string",
+      "default": "0"
+    },
+    "forLine": {
+      "type": "string",
+      "default": "0"
+    },
+    "forOperator": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

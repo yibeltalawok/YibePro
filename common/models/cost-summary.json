@@ -1,0 +1,60 @@
+{
+  "name": "CostSummary",
+  "plural": "CostSummaries",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
+  "properties": {
+    "date": {
+      "type": "date"
+    },
+    "workingDays": {
+      "type": "string",
+      "default": "0"
+    },
+    "minutesPerDay": {
+      "type": "string",
+      "default": "0"
+    },
+    "month": {
+      "type": "string"
+    },
+    "mName": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "directCost": {
+      "type": "string",
+      "default": "0"
+    },
+    "indirectCost": {
+      "type": "string",
+      "default": "0"
+    },
+    "costPerMonth": {
+      "type": "string",
+      "default": "0"
+    },
+    "costPerDay": {
+      "type": "string",
+      "default": "0"
+    },
+    "costPerMinute": {
+      "type": "string",
+      "default": "0"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
