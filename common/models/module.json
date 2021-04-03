@@ -28,6 +28,15 @@
   },
   "validations": [],
   "relations": {
+    
+    "Defects": {
+      "type": "hasMany",
+      "model": "defects",
+      "foreignKey": "moduleId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
     "OperationBulletins": {
       "type": "belongsTo",
       "model": "OperationBulletin",
