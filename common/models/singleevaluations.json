@@ -10,11 +10,40 @@
       "type": "string",
       "required": true
     },
+    "size": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    },
     "state": {
+      "type": "string"
+    },
+    "imethod": {
+      "type": "string",
+      "required": true
+    },
+    "ilevel": {
+      "type": "string",
+      "required": true
+    },
+    "lotquantity": {
+      "type": "number",
+      "required": true
+    },
+    "aqllvel": {
       "type": "string"
     },
     "linenum": {
       "type": "string"
+    },
+    "samplesize": {
+      "type": "string"
+    },
+    "quantitychecked": {
+      "type": "number"
     },
     "minor": {
       "type": "number"
@@ -48,14 +77,6 @@
       "type": "belongsTo",
       "model": "defects",
       "foreignKey": "defectId",
-      "options": {
-        "nestRemoting": true
-      }
-    },
-    "evaluations": {
-      "type": "belongsTo",
-      "model": "evaluations",
-      "foreignKey": "",
       "options": {
         "nestRemoting": true
       }
