@@ -41,7 +41,7 @@
   },
   "validations": [],
   "relations": {
-    "jobs": {
+    "job": {
       "type": "belongsTo",
       "model": "Job",
       "foreignKey": "",

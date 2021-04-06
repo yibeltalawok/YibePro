@@ -101,6 +101,14 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "LostTime": {
+      "type": "hasMany",
+      "model": "LostTime",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [],
