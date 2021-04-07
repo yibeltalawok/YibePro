@@ -19,7 +19,7 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - run: npm i
     # - run: npm i -g pm2
     - run: nodemon .
