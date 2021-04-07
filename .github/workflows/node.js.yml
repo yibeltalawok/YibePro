@@ -21,8 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: npm i
-    - run: npm i -g pm2
-    # - run: nodemon .
+    # - run: npm i -g pm2
+    - run: nodemon .
     # - uses: actions/checkout@v2
-    - run: pm2 start ecosystem.config.js
+    # - run: pm2 start ecosystem.config.js
     
