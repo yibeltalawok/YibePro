@@ -23,5 +23,5 @@ jobs:
     - run: npm i
     # - run: nodemon .
     # - uses: actions/checkout@v2
-    - run: pm2 restart ecosystem.config.js
+    - run: pm2 start ecosystem.config.js
     
