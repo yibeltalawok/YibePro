@@ -19,10 +19,10 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - run: npm i
     # - run: npm i -g pm2
     # - run: nodemon .
-    # - uses: actions/checkout@v2
     - run: pm2 start ecosystem.config.js
+    # - uses: actions/checkout@v2
     
