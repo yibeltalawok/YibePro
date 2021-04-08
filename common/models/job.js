@@ -12,7 +12,8 @@ module.exports = function (Job) {
                     }
                 },
                 "operation",
-                "LostTime"
+                "LostTime",
+                "employee"
             ]
         })
         return Promise.resolve(data);
@@ -42,9 +43,14 @@ module.exports = function (Job) {
             for( element of res) {
                 // Calculate amount done for a specifi job
                 var amountDone = 0;
+                var lostTime = 0;
                 // console.log("=======================================")
                 //     console.log(parseInt(element.__data.from.toString().split(":")[0]))
                 //     console.log("=======================================")
+                for(lt of element.__data.LostTime){
+                    lostTime += lt.__data.totalmins
+                }
+                
                 for(ph of element.__data.ProductionHistory){
                     var temp =ph.__data.ScannedOrderStatus.__data;
                     amountDone += parseInt(temp.to.toString()) -  parseInt(temp.from.toString()) + 1
@@ -52,18 +58,21 @@ module.exports = function (Job) {
 
                 var fromD = new Date(2011, 0, 1, parseInt(element.__data.from.toString().split(":")[0]), parseInt(element.__data.from.toString().split(":")[1]))
                 var toD = new Date(2011, 0, 1, parseInt(element.__data.to.toString().split(":")[0]), parseInt(element.__data.to.toString().split(":")[1]))
-
-                console.log("=======================================")
-                console.log(element.__data.from.toString())
-                console.log(fromD)
-                console.log(element.__data.to.toString())
-                console.log(toD)
-                console.log(((toD - fromD) / 1000) / 60)
-                console.log("=======================================")
+                var workTime = ((toD - fromD) / 1000) / 60;
+                var sam = parseInt(element.__data.operation.__data.sam.toString())
+                
+                var pf =  ((amountDone * sam) / (workTime - lostTime)) * 100
                 performances.push({
                     amountDone: amountDone, 
-                    sam: element.__data.operation.__data.sam,
-                    workingTime: ""
+                    sam: sam,
+                    workingTime: workTime,
+                    lotTime: lostTime,
+                    performance: parseFloat(pf.toFixed(2)),
+                    operationName: element.__data.operation.__data.operationName,
+                    employeeName: element.__data.employee.__data.fullName,
+                    employeeid: element.__data.employee.__data.id,
+                    employeeGender: element.__data.employee.__data.gender,
+                    employeeProfilePicture: element.__data.employee.__data.profilePicture,
                 })
             }
             cb(null, performances)
