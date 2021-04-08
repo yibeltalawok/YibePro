@@ -12,10 +12,10 @@
   },
   "properties": {
     "from": {
-      "type": "string"
+      "type": "number"
     },
     "to": {
-      "type": "string"
+      "type": "number"
     },
     "date": {
       "type": "string"

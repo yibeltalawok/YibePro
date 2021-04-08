@@ -1,5 +1,61 @@
 
 module.exports = function (Attendance) {
+  var getTotalEmployeeInSngleDepartment = async function (department) {
+    const { Employee } = Attendance.app.models;
+    var filter = { where: { department: department } };
+    var total = await Employee.find(filter);
+    total = total.length;
+
+    return Promise.resolve(total);
+  }
+
+  var getAbsent = function (data) {
+    var organized = [];
+    for (let i = 0; i < data.length; i++) {
+      var absent = data[i].totalEmployee - data[i].present;
+      organized.push({ department: data[i].department, totalEmployee: data[i].totalEmployee, present: data[i].present, absent: absent })
+    }
+
+    return organized;
+  }
+
+  Attendance.getDashboardAttendanceStartEndDate = (startDate, endDate, cb) => {
+    var data = [];
+    var filter = { include: ['employee'], where: { and: [{ dateAttended: { gte: startDate } }, { dateAttended: { lte: endDate } }] } };
+    Attendance.find(filter).then(res => {
+      for (let i = 0; i < res.length; i++) {
+        var existTempdata = 0;
+        for (let d = 0; d < data.length; d++) {
+          if (data[d][0] === res[i].employee.department) {
+            data[d][2] = data[d][2] + 1;
+            existTempdata = 1;
+            if (i === (res.length - 1))
+              cb(null, getAbsent(data));
+            break;
+          }
+        }
+        if (existTempdata === 0) {
+          getTotalEmployeeInSngleDepartment(res[i].__data.employee.department).then(totalEmployee => {
+            data.push({ department: res[i].__data.employee.department, totalEmployee: totalEmployee, present: 1 });
+
+            if (i === (res.length - 1))
+              cb(null, getAbsent(data));
+          });
+        }
+      }
+    });
+  }
+  Attendance.remoteMethod("getDashboardAttendanceStartEndDate", {
+    description: "Dashboard employee attendance using start and end date",
+    accepts: [{ arg: "startDate", type: "string", required: true }, { arg: "endDate", type: "string", required: true },],
+    returns: { type: "object", root: true },
+
+    http: {
+      verb: "get",
+      path: "/getDashboardAttendanceStartEndDate"
+    }
+  });
+
   Attendance.getReasonDashboard = (
     date, department, type,
     cb
@@ -255,7 +311,7 @@ module.exports = function (Attendance) {
                 attRoles.push(res[i].__data.employee.__data.userRole.__data.name)
               }
               catch {
-                
+
               }
             }
             let attObjs = attRoles.reduce((acc, val) => {
