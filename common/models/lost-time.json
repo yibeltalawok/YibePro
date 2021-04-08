@@ -14,7 +14,7 @@
     "recordedtime": {
       "type": "string"
     },
-    "iotid": {
+    "iotId": {
       "type": "string",
       "required": true
     },
@@ -44,15 +44,7 @@
     "job": {
       "type": "belongsTo",
       "model": "Job",
-      "foreignKey": "jobId",
-      "options": {
-        "nestRemoting": true
-      }
-    },
-    "iot": {
-      "type": "belongsTo",
-      "model": "iot",
-      "foreignKey": "iotId",
+      "foreignKey": "",
       "options": {
         "nestRemoting": true
       }
