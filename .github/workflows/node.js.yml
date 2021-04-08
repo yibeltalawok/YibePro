@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Backend_CI
 
 on:
   push:
@@ -13,16 +13,11 @@ jobs:
   build:
 
     runs-on: self-hosted
-    
-    strategy:
-      matrix:
-        node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - run: npm i
+    # - run: npm i -g pm2
     # - run: nodemon .
-    # - uses: actions/checkout@v2
-    - run: npm start
     - run: pm2 restart PM-Backend
     
