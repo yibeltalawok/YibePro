@@ -39,10 +39,6 @@
       "type": "string",
       "default": "done"
     },
-    "amountDone": {
-      "type": "string",
-      "default": "0"
-    },
     "allowGroup": {
       "type": "string",
       "default": "yes"
@@ -65,7 +61,7 @@
     "employee": {
       "type": "belongsTo",
       "model": "Employee",
-      "foreignKey": "",
+      "foreignKey": "employeeId",
       "options": {
         "nestRemoting": true
       }

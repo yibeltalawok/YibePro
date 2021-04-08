@@ -63,32 +63,7 @@
     }
   },
   "validations": [],
-  "relations": {
-    "OperationBulletins": {
-      "type": "belongsTo",
-      "model": "OperationBulletin",
-      "foreignKey": "OperationBulletinId",
-      "options": {
-        "nestRemoting": true
-      }
-    },
-    "scannedOrderStatus": {
-      "type": "belongsTo",
-      "model": "ScannedOrderStatus",
-      "foreignKey": "",
-      "options": {
-        "nestRemoting": true
-      }
-    },
-    "singleevaluations": {
-      "type": "hasMany",
-      "model": "singleevaluations",
-      "foreignKey": "",
-      "options": {
-        "nestRemoting": true
-      }
-    }
-  },
+  "relations": {},
   "acls": [],
   "methods": {}
 }

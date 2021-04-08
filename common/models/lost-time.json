@@ -52,7 +52,7 @@
     "employee": {
       "type": "belongsTo",
       "model": "Employee",
-      "foreignKey": "",
+      "foreignKey": "employeeId",
       "options": {
         "nestRemoting": true
       }

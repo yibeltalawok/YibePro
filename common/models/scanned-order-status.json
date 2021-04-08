@@ -36,6 +36,10 @@
     "type": {
       "type": "string"
     },
+    "state": {
+      "type": "string",
+      "default": "pending"
+    },
     "checked": {
       "type": "boolean"
     }
@@ -68,9 +72,9 @@
         "nestRemoting": true
       }
     },
-    "evaluations": {
-      "type": "hasOne",
-      "model": "evaluations",
+    "singleevaluations": {
+      "type": "hasMany",
+      "model": "singleevaluations",
       "foreignKey": "",
       "options": {
         "nestRemoting": true
