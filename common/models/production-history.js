@@ -6,14 +6,14 @@ module.exports = function (Productionhistory) {
     var result = [];
     var bundleList = [];
     var totalDone = 0;
-    var filter = { include: ['Employee', 'ScannedOrderStatus', 'Job', 'Order', 'Operation'], where: { date: date, to: { gte: hour }, employeeId: empIdDist, orderId: orderIdDist } };
+    var filter = { include: ['Employee', 'ScannedOrderStatus', 'Job', 'Order', 'Operation'], where: { date: { like: date }, to: { gte: hour }, employeeId: empIdDist, orderId: orderIdDist } };
     var res = await Productionhistory.find(filter);
 
     for (let i = 0; i < res.length; i++) {
       if (i === 0)
         result.push(res[i].__data.Order.styleName + " (#" + res[i].__data.Order.orderNumber + ")");
 
-      var bundleQua = parseInt(res[i].__data.ScannedOrderStatus.to) - parseInt(res[i].__data.ScannedOrderStatus.from);
+      var bundleQua = parseInt(res[i].__data.ScannedOrderStatus.to) - parseInt(res[i].__data.ScannedOrderStatus.from) + 1;;
       var bundleNo = res[i].__data.ScannedOrderStatus.bndlnum;
       totalDone += bundleQua;
 
@@ -80,7 +80,7 @@ module.exports = function (Productionhistory) {
 
     hour = parseFloat(hour);
 
-    var filter = { include: ['Employee', 'ScannedOrderStatus', 'Job', 'Order', 'Operation'], where: { date: date, to: { gte: hour } } };
+    var filter = { include: ['Employee', 'ScannedOrderStatus', 'Job', 'Order', 'Operation'], where: { date: { like: date }, to: { gte: hour } } };
     Productionhistory.find(filter).then(res => {
       for (var i = 0; i < res.length; i++) {
         //Distinict employee finder
