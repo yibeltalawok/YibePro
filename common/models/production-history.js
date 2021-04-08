@@ -14,7 +14,8 @@ module.exports = function (Productionhistory) {
         result.push(res[i].__data.Order.styleName + " (#" + res[i].__data.Order.orderNumber + ")");
 
       var bundleQua = parseInt(res[i].__data.ScannedOrderStatus.to) - parseInt(res[i].__data.ScannedOrderStatus.from) + 1;;
-      var bundleNo = res[i].__data.ScannedOrderStatus.bndlnum;
+      var bundleNo = res[i].__data.ScannedOrderStatus.bundleNo;
+
       totalDone += bundleQua;
 
       bundleList.push("#" + bundleNo + "-Q" + bundleQua);
