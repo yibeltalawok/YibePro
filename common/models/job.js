@@ -41,27 +41,32 @@ module.exports = function (Job) {
         fetchJobsinaDay(date).then(res => {
             performances  = []
             for( element of res) {
-                // Calculate amount done for a specifi job
+               
                 var amountDone = 0;
                 var lostTime = 0;
-                // console.log("=======================================")
-                //     console.log(parseInt(element.__data.from.toString().split(":")[0]))
-                //     console.log("=======================================")
+                // Calculate losttime for a specifi job
                 for(lt of element.__data.LostTime){
                     lostTime += lt.__data.totalmins
                 }
-                
+
+                 // Calculate amount done for a specifi job
                 for(ph of element.__data.ProductionHistory){
                     var temp =ph.__data.ScannedOrderStatus.__data;
                     amountDone += parseInt(temp.to.toString()) -  parseInt(temp.from.toString()) + 1
                 }
 
+                 // Calculate Working time for a specifi job
                 var fromD = new Date(2011, 0, 1, parseInt(element.__data.from.toString().split(":")[0]), parseInt(element.__data.from.toString().split(":")[1]))
                 var toD = new Date(2011, 0, 1, parseInt(element.__data.to.toString().split(":")[0]), parseInt(element.__data.to.toString().split(":")[1]))
                 var workTime = ((toD - fromD) / 1000) / 60;
+
+                 // Calculate Sam for a specifi job
                 var sam = parseInt(element.__data.operation.__data.sam.toString())
                 
+                 // Calculate Performance for a specifi job
                 var pf =  ((amountDone * sam) / (workTime - lostTime)) * 100
+
+                 // Pushing to the main list
                 performances.push({
                     amountDone: amountDone, 
                     sam: sam,
@@ -75,7 +80,7 @@ module.exports = function (Job) {
                     employeeProfilePicture: element.__data.employee.__data.profilePicture,
                 })
             }
-            cb(null, performances)
+            cb(null, performances) // Final callback
         })
     }
 };
