@@ -18,7 +18,6 @@
       "type": "string",
       "required": true
     },
-    
     "imethod": {
       "type": "string",
       "required": true

@@ -30,13 +30,10 @@
         "nestRemoting": true
       }
     },
-    "LostTime": {
+    "lostTimes": {
       "type": "hasMany",
       "model": "LostTime",
-      "foreignKey": "",
-      "options": {
-        "nestRemoting": true
-      }
+      "foreignKey": ""
     }
   },
   "acls": [],

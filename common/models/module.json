@@ -28,7 +28,6 @@
   },
   "validations": [],
   "relations": {
-    
     "Defects": {
       "type": "hasMany",
       "model": "defects",

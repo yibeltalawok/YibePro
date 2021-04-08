@@ -558,6 +558,7 @@ module.exports = function (LostTime) {
             "reasonid": 4,
             "totalmins": totalmins,
             "iotId": iot.iotid,
+            "iotDeviceId": iot.id
           }).then(o => {
 
           }).catch(e => {
