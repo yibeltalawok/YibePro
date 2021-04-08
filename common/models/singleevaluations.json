@@ -18,9 +18,7 @@
       "type": "string",
       "required": true
     },
-    "state": {
-      "type": "string"
-    },
+    
     "imethod": {
       "type": "string",
       "required": true
@@ -77,6 +75,14 @@
       "type": "belongsTo",
       "model": "defects",
       "foreignKey": "defectId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "ScannedOrderStatus": {
+      "type": "belongsTo",
+      "model": "ScannedOrderStatus",
+      "foreignKey": "scannedOrderStatusId",
       "options": {
         "nestRemoting": true
       }

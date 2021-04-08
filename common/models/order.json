@@ -121,9 +121,9 @@
       }
     },
     "product": {
-      "type": "hasOne",
+      "type": "belongsTo",
       "model": "product",
-      "foreignKey": "",
+      "foreignKey": "productId",
       "options": {
         "nestRemoting": true
       }

@@ -212,7 +212,7 @@ module.exports = function (LostTime) {
       ctx.req.body.employeeId = r.employeeId
 
       fetchJob(r.employeeId, ctx.req.body.date).then(s => {
-        ctx.req.body.jobsId = s[0].__data.id
+        ctx.req.body.jobId = s[0].__data.id
         if (ctx.req.body.reasonid == 1) ctx.req.body.reasonlabel = "Miscellaneous";
         else if (ctx.req.body.reasonid == 2) ctx.req.body.reasonlabel = "Machine Breakdown";
         else if (ctx.req.body.reasonid == 3) ctx.req.body.reasonlabel = "No Work";

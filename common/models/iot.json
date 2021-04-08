@@ -25,6 +25,14 @@
     "employee": {
       "type": "belongsTo",
       "model": "Employee",
+      "foreignKey": "employeeId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "LostTime": {
+      "type": "hasMany",
+      "model": "LostTime",
       "foreignKey": "",
       "options": {
         "nestRemoting": true

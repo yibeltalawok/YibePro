@@ -44,6 +44,10 @@
     },
     "standardSellingRate": {
       "type": "string"
+    },
+    "imagePath": {
+      "type": "string",
+      "default": "noimage"
     }
   },
   "validations": [],
@@ -51,6 +55,14 @@
     "category": {
       "type": "belongsTo",
       "model": "Category",
+      "foreignKey": "categoryId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "Order": {
+      "type": "hasMany",
+      "model": "Order",
       "foreignKey": "",
       "options": {
         "nestRemoting": true
