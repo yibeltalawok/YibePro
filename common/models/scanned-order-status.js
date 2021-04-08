@@ -1,3 +1,4 @@
+
 'use strict';
 
 const order = require("./order");
@@ -129,7 +130,7 @@ module.exports = function (ScannedOrderStatus) {
                         else if (result[k].__data.type === "fo") bundleHolder[6] += 1;
                         else if (result[k].__data.type === "pi") bundleHolder[7] += 1;
                         else if (result[k].__data.type === "po") bundleHolder[8] += 1;
-                        
+
                     }
                 });
                 bundleCounterHolder.push(bundleHolder);
