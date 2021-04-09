@@ -9,7 +9,9 @@ module.exports = function (Job) {
               {
                 ProductionHistory : ["ScannedOrderStatus"]
               },
-              "operation"
+              "operation",
+              "LostTime",
+              "employee"
             ]
         })
         return Promise.resolve(data);
