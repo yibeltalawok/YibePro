@@ -465,4 +465,34 @@ module.exports = function (Attendance) {
     }
   });
 
+  Attendance.remoteMethod("getTotal",{
+    description: "Get Total Attendance of a speicfic date",
+    accepts: [
+      {
+        arg: "date",
+        type: "string"
+      }
+    ],
+    returns: {
+      type: [
+        "object"
+      ],
+      root: true
+    },
+
+    http: {
+      verb: "post",
+      path: "/getTotal"
+    }
+  });
+
+  Attendance.getTotal = (date, cb) => {
+    Attendance.find({
+      where: { date },
+  }).then(res => {
+    cb(null, res.length);
+  })
+}
+
+
 };

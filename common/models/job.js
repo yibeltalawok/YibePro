@@ -4,20 +4,19 @@ module.exports = function (Job) {
     var fetchJobsinaDay = async function (date) {
 
         var data = await Job.find({
-            where: { date: { like: date } }, include: [
-                {
-                    relation: "ProductionHistory",
-                    scope: {
-                        include: "ScannedOrderStatus",
-                    }
-                },
-                "operation",
-                "LostTime",
-                "employee"
+            where: { date: { like: date } },
+            include: [
+              {
+                ProductionHistory : ["ScannedOrderStatus"]
+              },
+              "operation",
+              "LostTime",
+              "employee"
             ]
         })
         return Promise.resolve(data);
     }
+  
 
     Job.remoteMethod("fetchPerformance", {
         description: "Fech performance per a jopb",
@@ -81,6 +80,78 @@ module.exports = function (Job) {
                 })
             }
             cb(null, performances) // Final callback
+        })
+    }
+
+    Job.remoteMethod("lineEfficency", {
+        description: "Line efficency",
+        accepts: [
+            {
+                arg: "date",
+                type: "String",
+                required: true
+            }
+        ],
+        returns: {
+            type: [
+                "object"
+            ],
+            root: true
+        }
+    })
+  
+    Job.lineEfficency = (date, cb) => {
+        
+        fetchJobsinaDay(date).then(res => {
+            start = []
+            final  = []
+            for( element of res) {
+              var line = element.__data.line;
+              var amountDone = 0;
+              console.log(element.__data.operation);
+  
+                // Calculate amount done for a specific job
+              for(ph of element.__data.ProductionHistory){
+                  var temp = ph.__data;
+                  
+                  amountDone += parseInt(temp.to.toString()) -  parseInt(temp.from.toString()) + 1
+              }
+  
+                // Calculate Working time for a specific job
+              var fromD = new Date(2011, 0, 1, parseInt(element.__data.from.toString().split(":")[0]), parseInt(element.__data.from.toString().split(":")[1]))
+              var toD = new Date(2011, 0, 1, parseInt(element.__data.to.toString().split(":")[0]), parseInt(element.__data.to.toString().split(":")[1]))
+              var workTime = ((toD - fromD) / 1000) / 60;
+  
+                // Calculate Sam for a specific job
+              var sam = parseInt(element.__data.operation.__data.sam.toString())
+              
+                // Calculate Performance for a specific job
+              //var ef =  ((amountDone * sam) / (workTime - lostTime)) * 100
+              var idx = start.indexOf(line);
+              if (idx == -1) {
+                // Pushing to the main list
+                final.push({
+                    line,
+                    date,
+                    totalad: amountDone, 
+                    totalsam: sam,
+                    totalwhr: workTime,
+                    efficency: 0,
+                    //performance: parseFloat(ef.toFixed(2)),
+                })
+                start.push(line);
+              } else {
+                final[idx].totalad += amountDone;
+                final[idx].totalsam += sam;
+                final[idx].totalwhr += workTime;
+              }
+              
+            }
+            final.forEach(item => {
+              var ef =  ((item.totalad * item.totalsam) / (item.totalwhr)) * 100
+              item.efficency += parseFloat(ef.toFixed(2)); 
+            })
+            cb(null, final) // Final callback
         })
     }
 };
