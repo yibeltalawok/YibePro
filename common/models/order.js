@@ -428,6 +428,77 @@ module.exports = function (Order) {
   });
 
 
+  var getListOfBundleInSingleOrderDetailed = async function (query, result, returnableData) {
+    const { ScannedOrderStatus } = Order.app.models
+    var l = returnableData.length;
+    returnableData.push({ bundle: '', size: 0, ci: 0, co: 0, si: 0, so: 0, fi: 0, fo: 0, pi: 0, po: 0 });
+
+    returnableData[l].bundle = result.__data.cutNo;
+    returnableData[l].size = result.__data.bQty;
+
+
+    await ScannedOrderStatus.find(query).then(res => {
+      for (var j = 0; j < res.length; j++) {
+        if (res[j].type == "ci") returnableData[l].ci += 1;
+        else if (res[j].type == "co") returnableData[l].co += 1;
+        else if (res[j].type == "si") returnableData[l].si += 1;
+        else if (res[j].type == "so") returnableData[l].so += 1;
+        else if (res[j].type == "fi") returnableData[l].fi += 1;
+        else if (res[j].type == "fo") returnableData[l].fo += 1;
+        else if (res[j].type == "pi") returnableData[l].pi += 1;
+        else if (res[j].type == "po") returnableData[l].po += 1;
+      }
+    });
+  }
+
+  var getListOfCutsInSingleOrder = async function (orderid, cb) {
+    var returnableData = [];
+    const { BCSheet } = Order.app.models
+    //fetch distinict cuts from single order.
+
+    var query = { fields: ['cutNo', 'bQty', 'id'], where: { orderId: orderid } };
+    await BCSheet.find(query).then(result => {
+      for (var i in result) {
+        query = { fields: ['type'], where: { bCSheetId: result[i].id } };
+        getListOfBundleInSingleOrderDetailed(query, result[i], returnableData).then(() => {
+          if (result.length === returnableData.length) {
+            cb(null, returnableData);
+          }
+        });
+      }
+    });
+  }
+
+  Order.getScanSummaryofanOrderSingle = (
+    orderid,
+    cb
+  ) => {
+
+    getListOfCutsInSingleOrder(orderid, cb).then(result => {
+
+    });
+  }
+
+  Order.remoteMethod("getScanSummaryofanOrderSingle", {
+    description: "Get individual bundle summary of an order using an OrderId",
+
+    accepts: [{
+      arg: "orderid",
+      type: "string",
+      required: true
+    },
+    ],
+
+    returns: {
+      type: "object",
+      root: true
+    },
+
+    http: {
+      verb: "get",
+      path: "/getScanSummaryofanOrderSingle"
+    }
+  });
 
 
 
