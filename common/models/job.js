@@ -83,4 +83,5 @@ module.exports = function (Job) {
             cb(null, performances) // Final callback
         })
     }
+
 };
