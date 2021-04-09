@@ -1,48 +1,39 @@
 
 module.exports = function (Attendance) {
-  var getTotalEmployeeInSngleDepartment = async function (department) {
-    const { Employee } = Attendance.app.models;
-    var filter = { where: { department: department } };
-    var total = await Employee.find(filter);
-    total = total.length;
 
-    return Promise.resolve(total);
-  }
-
-  var getAbsent = function (data) {
-    var organized = [];
-    for (let i = 0; i < data.length; i++) {
-      var absent = data[i].totalEmployee - data[i].present;
-      organized.push({ department: data[i].department, totalEmployee: data[i].totalEmployee, present: data[i].present, absent: absent })
+  var rearrangeData = async function (res, disDepa, cb) {
+    var data = [];
+    for (let s = 0; s < disDepa.length; s++) {
+      data.push({ department: disDepa[s], present: 0, absent: 0 });
+      for (let j = 0; j < res.length; j++) {
+        if (res[j].__data.employee.department === disDepa[s]) {
+          if (res[j] === 'A')
+            data[s].absent = data[s].absent + 1;
+          else
+            data[s].present = data[s].present + 1;
+        }
+      }
     }
-
-    return organized;
+    cb(null, data);
   }
 
   Attendance.getDashboardAttendanceStartEndDate = (startDate, endDate, cb) => {
-    var data = [];
+    var disDepa = [];
     var filter = { include: ['employee'], where: { and: [{ dateAttended: { gte: startDate } }, { dateAttended: { lte: endDate } }] } };
     Attendance.find(filter).then(res => {
       for (let i = 0; i < res.length; i++) {
         var existTempdata = 0;
-        for (let d = 0; d < data.length; d++) {
-          if (data[d][0] === res[i].employee.department) {
-            data[d][2] = data[d][2] + 1;
+        for (let d = 0; d < disDepa.length; d++) {
+          if (disDepa[d] === res[i].__data.employee.department) {
             existTempdata = 1;
-            if (i === (res.length - 1))
-              cb(null, getAbsent(data));
             break;
           }
         }
         if (existTempdata === 0) {
-          getTotalEmployeeInSngleDepartment(res[i].__data.employee.department).then(totalEmployee => {
-            data.push({ department: res[i].__data.employee.department, totalEmployee: totalEmployee, present: 1 });
-
-            if (i === (res.length - 1))
-              cb(null, getAbsent(data));
-          });
+          disDepa.push(res[i].__data.employee.department);
         }
       }
+      rearrangeData(res, disDepa, cb);
     });
   }
   Attendance.remoteMethod("getDashboardAttendanceStartEndDate", {
