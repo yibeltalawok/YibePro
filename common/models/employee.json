@@ -225,6 +225,14 @@
       "options": {
         "nestRemoting": true
       }
+    },
+    "Performance": {
+      "type": "hasMany",
+      "model": "Performance",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
     }
   },
   "acls": [
