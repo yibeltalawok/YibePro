@@ -158,7 +158,7 @@ module.exports = function (Performance) {
                             }
                         }).catch(e => {
                             console.log(e)
-                    })
+                        })
 
                     }
                 }
@@ -183,7 +183,7 @@ module.exports = function (Performance) {
                         }
                     }).catch(e => {
                         console.log(e)
-                })
+                    })
 
                 }
 
@@ -225,5 +225,39 @@ module.exports = function (Performance) {
             verb: "post",
             path: "/createSummary"
         }
+    });
+
+
+    Performance.yearlyPerformance = (year, cb) => {
+        year = year + "-01-01";
+
+        var filter = { include: ['Employee'], order: 'date ASC', where: { date: { gte: year } } };
+        Performance.find(filter).then(res => {
+            var data = [];
+            for (let i = 0; i < res.length; i++) {
+                var date = res[i].date;
+                var average = res[i].average;
+                var id = res[i].id;
+                var topValue = res[i].topValue;
+                var fullName = res[i].__data.Employee.fullName;
+                var department = res[i].__data.Employee.department;
+                var gender = res[i].__data.Employee.gender;
+                var phoneNumber = res[i].__data.Employee.phoneNumber
+
+                data.push({ date, average, id, topValue, fullName, department, gender, phoneNumber });
+            }
+
+            cb(null, data);
+        });
+    }
+
+
+    Performance.remoteMethod("yearlyPerformance", {
+        description: "Yearly performance",
+
+        accepts: { type: "string", arg: "year", required: true },
+        returns: { type: "object", root: true },
+
+        http: { verb: 'get', path: "/yearlyPerformance" }
     });
 };
