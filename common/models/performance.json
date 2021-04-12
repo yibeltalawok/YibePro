@@ -14,37 +14,17 @@
     "date": {
       "type": "date"
     },
-    "day": {
-      "type": "string"
-    },
-    "month": {
-      "type": "string"
-    },
-    "year": {
-      "type": "string"
-    },
-    "line": {
-      "type": "string"
-    },
-    "value": {
+    "average": {
       "type": "number"
     },
-    "efficency": {
+    "top": {
       "type": "number"
     }
   },
   "validations": [],
   "relations": {
-    "jobs": {
+    "Employee": {
       "type": "belongsTo",
-      "model": "Job",
-      "foreignKey": "jobId",
-      "options": {
-        "nestRemoting": true
-      }
-    },
-    "employees": {
-      "type": "hasAndBelongsToMany",
       "model": "Employee",
       "foreignKey": "employeeId",
       "options": {
