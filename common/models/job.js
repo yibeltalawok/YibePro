@@ -83,7 +83,7 @@ module.exports = function (Job) {
         })
     }
 
-    Job.remoteMethod("lineEfficency", {
+    Job.remoteMethod("lineEfficiency", {
         description: "Line efficency",
         accepts: [
             {
@@ -100,7 +100,7 @@ module.exports = function (Job) {
         }
     })
   
-    Job.lineEfficency = (date, cb) => {
+    Job.lineEfficiency = (date, cb) => {
         
         fetchJobsinaDay(date).then(res => {
             start = []
@@ -108,25 +108,21 @@ module.exports = function (Job) {
             for( element of res) {
               var line = element.__data.line;
               var amountDone = 0;
-              console.log(element.__data.operation);
   
-                // Calculate amount done for a specific job
+              // Calculate amount done for a specific job
               for(ph of element.__data.ProductionHistory){
-                  var temp = ph.__data;
-                  
+                  var temp = ph.__data.ScannedOrderStatus.__data;
                   amountDone += parseInt(temp.to.toString()) -  parseInt(temp.from.toString()) + 1
               }
   
-                // Calculate Working time for a specific job
+              // Calculate Working time for a specific job
               var fromD = new Date(2011, 0, 1, parseInt(element.__data.from.toString().split(":")[0]), parseInt(element.__data.from.toString().split(":")[1]))
               var toD = new Date(2011, 0, 1, parseInt(element.__data.to.toString().split(":")[0]), parseInt(element.__data.to.toString().split(":")[1]))
               var workTime = ((toD - fromD) / 1000) / 60;
   
-                // Calculate Sam for a specific job
+              // Calculate Sam for a specific job
               var sam = parseInt(element.__data.operation.__data.sam.toString())
               
-                // Calculate Performance for a specific job
-              //var ef =  ((amountDone * sam) / (workTime - lostTime)) * 100
               var idx = start.indexOf(line);
               if (idx == -1) {
                 // Pushing to the main list
@@ -136,8 +132,7 @@ module.exports = function (Job) {
                     totalad: amountDone, 
                     totalsam: sam,
                     totalwhr: workTime,
-                    efficency: 0,
-                    //performance: parseFloat(ef.toFixed(2)),
+                    efficiency: 0,
                 })
                 start.push(line);
               } else {
@@ -149,7 +144,7 @@ module.exports = function (Job) {
             }
             final.forEach(item => {
               var ef =  ((item.totalad * item.totalsam) / (item.totalwhr)) * 100
-              item.efficency += parseFloat(ef.toFixed(2)); 
+              item.efficiency += parseFloat(ef.toFixed(2)); 
             })
             cb(null, final) // Final callback
         })
