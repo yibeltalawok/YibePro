@@ -54,7 +54,6 @@
         "nestRemoting": true
       }
     },
-
     "BCSheet": {
       "type": "belongsTo",
       "model": "BCSheet",
@@ -63,7 +62,6 @@
         "nestRemoting": true
       }
     },
-
     "BundleHistory": {
       "type": "hasMany",
       "model": "BundleHistory",

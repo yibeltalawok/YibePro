@@ -40,7 +40,6 @@
     "phoneNumber": {
       "type": "string"
     }
-
   },
   "validations": [],
   "relations": {},

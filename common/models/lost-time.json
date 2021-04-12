@@ -44,7 +44,7 @@
     "job": {
       "type": "belongsTo",
       "model": "Job",
-      "foreignKey": "",
+      "foreignKey": "jobId",
       "options": {
         "nestRemoting": true
       }
@@ -53,6 +53,14 @@
       "type": "belongsTo",
       "model": "Employee",
       "foreignKey": "employeeId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "iot": {
+      "type": "belongsTo",
+      "model": "iot",
+      "foreignKey": "iotDeviceId",
       "options": {
         "nestRemoting": true
       }
