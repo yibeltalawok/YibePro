@@ -7,10 +7,10 @@ module.exports = function (Attendance) {
       data.push({ department: disDepa[s], present: 0, absent: 0 });
       for (let j = 0; j < res.length; j++) {
         if (res[j].__data.employee.department === disDepa[s]) {
-          if (res[j].__data.value === "A")
-            data[s].absent = data[s].absent + 1;
-          else
+          if (res[j].__data.value === "P")
             data[s].present = data[s].present + 1;
+          else
+            data[s].absent = data[s].absent + 1;
         }
       }
     }
