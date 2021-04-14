@@ -77,9 +77,9 @@
   "validations": [],
   "relations": {
     "operations": {
-      "type": "hasAndBelongsToMany",
+      "type": "hasMany",
       "model": "Operation",
-      "foreignKey": "",
+      "foreignKey": "oprBltnId",
       "options": {
         "nestRemoting": true
       }

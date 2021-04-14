@@ -138,12 +138,32 @@ module.exports = function(OperationBulletin) {
       });
 
 
+      var fetchOperationBulletingWithOperations = async function(id, f){
+          var data = await OperationBulletin.findById(id, f);
+         return Promise.resolve(data.__data.operations); 
+      }
+
+
       OperationBulletin.totalSewingSam = function (opbulid, cb) {
         var f = {
-            where: {
-                
-            }
+                include: ["operations"]
         }
+
+         fetchOperationBulletingWithOperations(opbulid, f).then( res => {
+             var tsam = 0;
+            if (res.length > 0){
+                for(var i = 0; i < res.length; i++) {
+                    // console.log(res[i].__data)
+                    tsam += parseInt(res[i].__data.sam)
+                }
+                cb(null, tsam)
+            } else {
+                cb(null, 0)
+
+            }
+        })
+
+
       }
 
 
