@@ -97,10 +97,10 @@ module.exports = function(OperationBulletin) {
         const { singleevaluations } = OperationBulletin.app.models;
         var result = await singleevaluations.find({where: {'defectId': val}})
         // console.log(result)
-        minor = result[0].minor;
-        major = result[0].major;
-        total = result[0].total;
-        evaluationid = result[0].id;
+        minor = result.length > 0 ? result[0].minor : 0;
+        major = result.length > 0 ? result[0].major : 0;
+        total = result.length > 0 ? result[0].total : 0;
+        evaluationid = result.length > 0 ? result[0].id : "";
 
         return Promise.resolve({evaluationid, minor, major, total});
 
