@@ -18,22 +18,16 @@
     "line": {
       "type": "number"
     },
-    "mpAllocated": {
+    "totalad": {
       "type": "number"
     },
-    "sam": {
+    "totalsam": {
       "type": "number"
     },
-    "totalso": {
+    "totalwhr": {
       "type": "number"
     },
-    "orderId": {
-      "type": "string"
-    },
-    "totalWorkingTime": {
-      "type": "string"
-    },
-    "eff": {
+    "efficiency": {
       "type": "string"
     }
   },
