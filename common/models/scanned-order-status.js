@@ -104,8 +104,6 @@ module.exports = function (ScannedOrderStatus) {
         http: { verb: "get", path: "/singleOrderStausData" }
     });
 
-
-
     var getIndividualBundles = async function (typesOfColor, label, OrderId) {
         var result = [];
         for (let i = 0; i < typesOfColor.length; i++) {
@@ -140,8 +138,6 @@ module.exports = function (ScannedOrderStatus) {
         }
         return result;
     }
-
-
 
     ScannedOrderStatus.bundlesStatusInOrder = (OrderId, cb) => {
         var typesOfColor = [];
@@ -198,7 +194,6 @@ module.exports = function (ScannedOrderStatus) {
         http: { verb: "get", path: "/bundlesStatusInOrder" }
     });
 
-
     // Scannedorderstatus.afterRemote("create", function (ctx, _, next) {
     //     const { PackingList } = Scannedorderstatus.app.models;
     //     PackingList.find({
@@ -215,11 +210,11 @@ module.exports = function (ScannedOrderStatus) {
             ScannedOrderStatus.find({}, (err, res) => {
                 cb(null, res)
             })
-        } catch (error) {
+        } 
+        catch (error) {
             throw new Error("Internal server error try again");
         }
     }
-
 
     ScannedOrderStatus.remoteMethod("deleteAll", {
         description: "QR code generator",
@@ -235,4 +230,141 @@ module.exports = function (ScannedOrderStatus) {
             path: "/deleteAll"
         }
     });
+
+    var fetchScannedOrderStatus = async function (val) {
+        var data = await ScannedOrderStatus.find({ where: { id: val } })
+        // console.log(data);
+        return Promise.resolve(data);
+    }
+
+    var updateScannedOrderStatus = async function(bndlid, status){
+        await ScannedOrderStatus.findById(bndlid, function(err, instance){
+            if(err){
+                //skip
+            }
+            else{
+                instance.updateAttributes({type: status});
+            }
+        });
+    }
+
+    var registerBundleHistory = async function(currentStatus, newStatus, cleandate, lineNumber, bundleid){
+        const {BundleHistory} = ScannedOrderStatus.app.models;
+        await BundleHistory.create([{oldStatus: currentStatus, newStatus: newStatus, date: cleandate, lineNumber: lineNumber, scannedOrderStatusId: bundleid}]);
+    }
+
+    ScannedOrderStatus.changeBundleStatus = (bundleid, action, linenum, cb) =>{
+
+        fetchScannedOrderStatus(bundleid).then(res =>{
+            // console.log(res)
+            let currentStatus = res[0].type;
+            let newStatus = '';
+            let lineNumber = linenum;
+
+            // if(action == 'f' && currentStatus == 'po'){
+            //     console.log("Can't step up!")
+            // }
+            // if(action == 'b' && currentStatus == 'ci'){
+            //     console.log("Can't step down!")
+            // }
+
+            if(action == 'f'){
+                switch (currentStatus) {
+                    case "ci":
+                        newStatus = "co";
+                        break;
+                    case "co":
+                        newStatus = "si";
+                        break;
+                    case "si":
+                        newStatus = "so";
+                        break;
+                    case "so":
+                        newStatus = "fi";
+                        break;
+                    case "fi":
+                        newStatus = "fo";
+                        break;
+                    case "fo":
+                        newStatus = "pi";
+                        break;
+                    case "pi":
+                        newStatus = "po";
+                        break;
+                }
+            }
+            else if(action == 'b'){
+                switch (currentStatus) {
+                    
+                    case "co":
+                        newStatus = "ci";
+                        break;
+                    case "si":
+                        newStatus = "co";
+                        break;
+                    case "so":
+                        newStatus = "si";
+                        break;
+                    case "fi":
+                        newStatus = "so";
+                        break;
+                    case "fo":
+                        newStatus = "fi";
+                        break;
+                    case "pi":
+                        newStatus = "fo";
+                        break;
+                    case "po":
+                        newStatus = "pi";
+                        break;
+                }
+            }
+            // update ScannedOrderStatus with the new status
+            updateScannedOrderStatus(bundleid, newStatus);
+
+            // register a new bundle history with the provided data.
+            // i.e. currentStatus, newStatus, date, lineNumber, bundleId
+            
+            var dt = new Date();
+            var isoFormat = dt.toISOString();
+            var substringedDt = isoFormat.substr(0,19);
+            var cleandate = substringedDt.replace('T', ' ');
+
+            registerBundleHistory(currentStatus, newStatus, cleandate, lineNumber, bundleid);
+            
+        })
+    };
+    
+    ScannedOrderStatus.remoteMethod("changeBundleStatus", {
+        description: "Get the quantity of the garment processed in a given date on the three statuses si, fi and pi",
+        accepts: [
+            {
+                arg: "scannedOrderStatusId",
+                type: "string",
+                required: true
+            },
+            {
+                arg: "action",
+                type: "string",
+                required: true
+            },
+            {
+                arg: "lineNumber",
+                type: "string",
+                required: true
+            },
+        ],
+    
+        returns: {
+          type: "object",
+          root: true
+        },
+        
+        http: {
+          verb: "post",
+          path: "/changeBundleStatus"
+        }
+    });
+
 }
+
