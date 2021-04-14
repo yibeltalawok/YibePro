@@ -260,6 +260,14 @@ module.exports = function (ScannedOrderStatus) {
             let currentStatus = res[0].type;
             let newStatus = '';
             let lineNumber = linenum;
+
+            // if(action == 'f' && currentStatus == 'po'){
+            //     console.log("Can't step up!")
+            // }
+            // if(action == 'b' && currentStatus == 'ci'){
+            //     console.log("Can't step down!")
+            // }
+
             if(action == 'f'){
                 switch (currentStatus) {
                     case "ci":
