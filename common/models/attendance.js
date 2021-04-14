@@ -7,7 +7,7 @@ module.exports = function (Attendance) {
       data.push({ department: disDepa[s], present: 0, absent: 0 });
       for (let j = 0; j < res.length; j++) {
         if (res[j].__data.employee.department === disDepa[s]) {
-          if (res[j] === 'A')
+          if (res[j].__data.value === "A")
             data[s].absent = data[s].absent + 1;
           else
             data[s].present = data[s].present + 1;
@@ -465,7 +465,7 @@ module.exports = function (Attendance) {
     }
   });
 
-  Attendance.remoteMethod("getTotal",{
+  Attendance.remoteMethod("getTotal", {
     description: "Get Total Attendance of a speicfic date",
     accepts: [
       {
@@ -489,10 +489,10 @@ module.exports = function (Attendance) {
   Attendance.getTotal = (date, cb) => {
     Attendance.find({
       where: { date },
-  }).then(res => {
-    cb(null, res.length);
-  })
-}
+    }).then(res => {
+      cb(null, res.length);
+    })
+  }
 
 
 };
