@@ -149,4 +149,95 @@ module.exports = function (Job) {
             cb(null, final) // Final callback
         })
     }
+
+    let fetchYesterDayJobs = async function(dt){
+        let res = await Job.find({where: {date: {like: dt}}});
+        return Promise.resolve(res);
+    }
+
+    let fetchEmployeeData = async function(empid){
+        const { Employee } = Job.app.models;
+        let emps = await Employee.find({where: { id: empid }, include: ["attendances"]});
+        // console.log(emps)
+
+        // for (let i = 0; i < emps.length; i++) {
+        //     console.log(emps[i].fullName)
+        //     let att = emps[i].attendances;
+        //     console.log(att)
+        // }
+
+        return Promise.resolve(emps);
+    }
+
+    Job.jobAutoAssign = (cb) =>{
+        
+        // get yesterday's date.
+        let today = new Date();
+        let yday = new Date(today);
+        yday.setDate(yday.getDate() - 1);
+        let yesterday = new Date(yday).toISOString().substr(0, 10);
+
+        console.log("Today's date: " + today.toISOString().substr(0, 10));
+        console.log("Yesterday's data: " + yesterday);
+
+        // First, fetch jobs of yesterday.
+        fetchYesterDayJobs(yesterday).then(res =>{
+            // console.log(res)
+            for (let i = 0; i < res.length; i++) {
+                let empId = res[i].employeeId
+                let opId = res[i].operationId
+                // console.log(opId)
+    
+                // for each job, get the employee assigned with attendance included.
+
+                // For every employee check if he/she is present for today using employee id.
+                fetchEmployeeData(empId).then(rs =>{
+                    
+                    for(let j = 0; j < rs.length; j++){
+                        let fullname = rs[j].__data.fullName;
+                        let attendance = rs[j].__data.attendances;
+
+                        
+
+                        for (let k = 0; k < attendance.length; k++) {
+                            // console.log(attendance[k].value)
+                            if(attendance[k].value == 'P'){
+                                console.log("The employee is present! You can assign a job.")
+                            }
+                            else{
+                                console.log("The employee is not present!")
+                            }
+                        }
+                        // let attValue = att.__data.value;
+                        // console.log(att)
+                    }
+                })
+                // fetchOperation(opId)
+    
+            }
+        })
+        
+    }
+
+    Job.remoteMethod("jobAutoAssign", {
+        description: "Automatically assing a job to an employee based on the last job he/she completed.",
+        accepts: [
+            // {
+            // arg: "employees",
+            // type: "array",
+            // allowArrays: true,
+            // required: true
+            // },
+        ],
+    
+        returns: {
+          type: "object",
+          root: true
+        },
+        http: {
+          verb: "get",
+          path: "/jobAutoAssign"
+        }
+    
+    });
 };
