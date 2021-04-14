@@ -40,6 +40,7 @@ module.exports = function(OperationBulletin) {
     }
 
     var fetchModules = async function (val,mdls) {
+        var moduleId;
         var defectInfo = [];
         var modulename;
         var imgurl;
@@ -50,6 +51,7 @@ module.exports = function(OperationBulletin) {
         for (let j = 0; j < result.length; j++) {
             modulename = result[j].modulename;
             imgurl = result[j].imageurl;
+            moduleId = result[j].id;
             var dfct = result[j].defects;
             defectInfo = []
             for (let k = 0; k < dfct.length; k++) {
@@ -62,7 +64,7 @@ module.exports = function(OperationBulletin) {
             }
 
             // obj = {modulename, imgurl, defects}
-            mdls.push({modulename, imgurl, defectInfo})
+            mdls.push({modulename, imgurl, moduleId, defectInfo})
         }
         return Promise.resolve(mdls);
             
