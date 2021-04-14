@@ -135,4 +135,34 @@ module.exports = function(OperationBulletin) {
     
       });
 
+
+      OperationBulletin.totalSewingSam = function (opbulid, cb) {
+        var f = {
+            where: {
+                
+            }
+        }
+      }
+
+
+      OperationBulletin.remoteMethod("totalSewingSam", {
+        description: "Total Sewing Sam for a certain operation bulletin id",
+        accepts: [{
+          arg: "opbulid",
+          type: "string",
+          required: true
+        }
+        ],
+    
+        returns: {
+          type: "number",
+          root: true
+        },
+        http: {
+          verb: "get",
+          path: "/totalSewingSam"
+        }
+    
+      });
+
 };
