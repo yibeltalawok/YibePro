@@ -566,44 +566,4 @@ module.exports = function (Employee) {
         }
     });
 
-
-    let fetchEmployeeData = async function(empid){
-        // find employees data using the id.
-        let emp = await Employee.find({where: {id: empid}});
-        console.log(emp); //TODO to  be continued here..
-    }
-
-    Employee.jobAutoAssign = (employees, cb) =>{
-        
-        let emps = ['604c8a2288030517b053df76', '606196a46a76ac2d288cfdd6', '606196a46a76ac2d288cfdd7'];
-        for (let i = 0; i < emps.length; i++) {
-            console.log(emps[i])
-            // fetchEmployeeData('604c8a2288030517b053df76')
-            fetchEmployeeData(emps[i])
-            
-        }
-    }
-
-    Employee.remoteMethod("jobAutoAssign", {
-        description: "Automatically assing a job to an employee based on the last job he/she completed.",
-        accepts: [{
-          arg: "employees",
-          type: "array",
-          allowArrays: true,
-          required: true
-          },
-        ],
-    
-        returns: {
-          type: "object",
-          root: true
-        },
-        http: {
-          verb: "get",
-          path: "/jobAutoAssign"
-        }
-    
-    });
-    
-
 };
