@@ -153,6 +153,7 @@ module.exports = function(OperationBulletin) {
 
       OperationBulletin.totalMinutesProduced = function (opbulid, date, cb) {
           // Note Date has to be in the following format YYYY-MM
+          console.log(opbulid + " " + date)
 
         var f = {
                 include: ["operations", "order"]
@@ -207,12 +208,20 @@ module.exports = function(OperationBulletin) {
                 })
 
 
+            }).catch( e=> {
+                console.log("============ Error ==============")
+                console.log(e)
+                console.log("==================================")
             })
 
 
             
             
 
+        }).catch( e=> {
+            console.log("============ Error Fetchin Sam ==============")
+            console.log(e)
+            console.log("==========================")
         })
 
 
