@@ -129,5 +129,82 @@ module.exports = function (OperationalCost) {
         }
     })
 
+    var fetchOpCost = async function(fromdate, todate){
+       var data = await OperationalCost.find(
+            {
+            where: {
+                date: {
+                    gt: fromdate,
+                    lt: todate
+                }
+            }
+        })
+
+        return Promise.resolve(data)
+    }
+
+    OperationalCost.getOperationCostSummary = (fromdate, todate, cb) => {
+        try {
+            
+            fetchOpCost(fromdate, todate).then(res => {
+                // cb(null, res)
+                var idcost = 0.0;
+                var dcost = 0.0;
+                if(res.length > 0){
+                    for(var opcost of res){
+                        if(opcost.__data.type == 'Indirect Cost'){
+                            idcost += parseFloat(opcost.__data.amount)
+                        }
+                        else {
+                            dcost += parseFloat(opcost.__data.amount)
+                        }
+                    }
+                    cb(null, {
+                        directCost: dcost,
+                        indirectCost: idcost,
+                        totalCost: dcost + idcost
+                    })
+                } else {
+                    cb(null, {
+                        directCost: 0,
+                        indirectCost: 0,
+                        totalCost: 0
+                    })
+                }
+            })
+
+        } catch (error) {
+            throw new Error("Internal server error try again");
+        }
+    }
+
+    OperationalCost.remoteMethod("getOperationCostSummary", {
+        description: "Get operational cost per date range",
+
+        returns: {
+            type: ["object"],
+            root: true
+        },
+
+        accepts: [
+            {
+                arg: "fromdate",
+                type: "string",
+                required: true
+            },
+            {
+                arg: "todate",
+                type: "string",
+                required: true
+            },
+        ],
+
+        http: {
+            verb: "post",
+            path: "/getOperationCostSummary"
+
+        }
+    })
+
 
 };
