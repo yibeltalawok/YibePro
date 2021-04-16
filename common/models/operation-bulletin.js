@@ -30,16 +30,16 @@ module.exports = function(OperationBulletin) {
     })
 
     // ================== =============
-    var fetchOperationBulletin = async function (val) {
+    var fetchOperationBulletin = async function (val, scanid) {
         var mdls = [];
         var res = await OperationBulletin.find({ where: { orderId: val } });
         for (let i = 0; i < res.length; i++) {
-            await fetchModules(res[i].id, mdls);
+            await fetchModules(res[i].id, mdls, scanid);
         }
         return Promise.resolve(mdls);
     }
 
-    var fetchModules = async function (val,mdls) {
+    var fetchModules = async function (val,mdls, scanid) {
         var moduleId;
         var defectInfo = [];
         var modulename;
@@ -56,7 +56,7 @@ module.exports = function(OperationBulletin) {
             defectInfo = []
             for (let k = 0; k < dfct.length; k++) {
 
-                await fetchDefects(dfct[k]).then(res=>{
+                await fetchDefects(dfct[k], moduleId, scanid).then(res=>{
                     // console.log(res)
                     defectInfo.push(res);
                 });
@@ -70,7 +70,7 @@ module.exports = function(OperationBulletin) {
             
     }
 
-    var fetchDefects = async function(val){
+    var fetchDefects = async function(val, moduleId, scanid){
         var defectId;
         var nameEng;
         var nameAmharic;
@@ -80,7 +80,7 @@ module.exports = function(OperationBulletin) {
         var res = await defects.find({ where: { id: val } });
         
         defectId = res[0].__data.id;
-        await fetchSingleEvaluation(defectId).then(res =>{
+        await fetchSingleEvaluation(defectId, moduleId, scanid).then(res =>{
             singleEvaluation.push(res)
         });
         nameEng = res[0].__data.name_english;
@@ -91,13 +91,13 @@ module.exports = function(OperationBulletin) {
     }
     
 
-    var fetchSingleEvaluation = async function(val){
+    var fetchSingleEvaluation = async function(val, moduleid, scanid){
         var minor;
         var major;
         var total;
         var evaluationid;
         const { singleevaluations } = OperationBulletin.app.models;
-        var result = await singleevaluations.find({where: {'defectId': val}})
+        var result = await singleevaluations.find({where: {and: [{'defectId': val}, {moduleId: moduleid}, {scannedOrderStatusId: scanid}]} })
         // console.log(result)
         minor = result.length > 0 ? result[0].minor : 0;
         major = result.length > 0 ? result[0].major : 0;
@@ -108,9 +108,9 @@ module.exports = function(OperationBulletin) {
 
     }
 
-    OperationBulletin.modulesInOrder = (orderId, cb) =>{
+    OperationBulletin.modulesInOrder = (orderId, scanId, cb) =>{
         var obj = {};
-        fetchOperationBulletin(orderId).then(res =>{
+        fetchOperationBulletin(orderId, scanId).then(res =>{
             obj = {modules: res}
             
             cb(null, obj)
@@ -123,6 +123,11 @@ module.exports = function(OperationBulletin) {
           arg: "orderId",
           type: "string",
           required: true
+        },
+        {
+            arg: "scannedOrderStatusId",
+            type: "string",
+            required: true
         }
         ],
     
