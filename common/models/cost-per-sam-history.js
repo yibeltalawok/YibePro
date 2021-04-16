@@ -87,11 +87,9 @@ module.exports = function (CostPerSamHistory) {
                     if(idx == -1) opbulletins.push(opid)
                 }
 
-                console.log(opbulletins)
+                cb(null, opbulletins)
 
-                fetchOpTotalMins(opbulletins[0], year+"-"+month).then( res => {
-                    console.log(res)
-                })
+               
                 
             })
             
@@ -118,7 +116,7 @@ module.exports = function (CostPerSamHistory) {
         ]
         ,
         returns: {
-            type: "object",
+            type: ["string"],
             root: true
         },
 
