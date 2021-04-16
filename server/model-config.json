@@ -268,5 +268,9 @@
   "ProductionHistory": {
     "dataSource": "mongo_db",
     "public": true
+  },
+  "RTFandDHU": {
+    "dataSource": "mongo_db",
+    "public": true
   }
 }
