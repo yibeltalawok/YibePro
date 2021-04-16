@@ -8,5 +8,4 @@ node_modules
 /uploads/customer/*
 /uploads/attachment/*
 /uploads/idPictures/*
-/uploads/staticStyles/*
 /uploads/supplier/*

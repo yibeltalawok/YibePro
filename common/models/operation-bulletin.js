@@ -99,10 +99,10 @@ module.exports = function(OperationBulletin) {
         const { singleevaluations } = OperationBulletin.app.models;
         var result = await singleevaluations.find({where: {'defectId': val}})
         // console.log(result)
-        minor = result[0].minor;
-        major = result[0].major;
-        total = result[0].total;
-        evaluationid = result[0].id;
+        minor = result.length > 0 ? result[0].minor : 0;
+        major = result.length > 0 ? result[0].major : 0;
+        total = result.length > 0 ? result[0].total : 0;
+        evaluationid = result.length > 0 ? result[0].id : "";
 
         return Promise.resolve({evaluationid, minor, major, total});
 
@@ -133,6 +133,122 @@ module.exports = function(OperationBulletin) {
         http: {
           verb: "get",
           path: "/modulesInOrder"
+        }
+    
+      });
+
+      // Fetches Operation billetins with operations included
+      var fetchOperationBulletingWithOperations = async function(id, f){
+          var data = await OperationBulletin.findById(id, f);
+         return Promise.resolve(data.__data); 
+      }
+
+      // Fetch scannedorderStatus with theri respective bundle History for a certain Order
+      var fetchScanedOrderStatus = async function(id, f){
+        const { Order }  = OperationBulletin.app.models
+        var data = await Order.findById(id, f);
+       return Promise.resolve(data); 
+    }
+
+
+      OperationBulletin.totalMinutesProduced = function (opbulid, date, cb) {
+          // Note Date has to be in the following format YYYY-MM
+          console.log(opbulid + " " + date)
+
+        var f = {
+                include: ["operations", "order"]
+        }
+
+         fetchOperationBulletingWithOperations(opbulid, f).then( res => {
+             var tsam = 0;
+            
+            if (res.operations.length > 0){
+                for(var i = 0; i < res.operations.length; i++) {
+                    tsam += parseInt(res.operations[i].__data.sam)
+                }
+                
+            } 
+
+            var f2 = {
+                include: [
+                    {
+                        relation: "ScannedOrderStatus",
+                        scope: {
+                            include: {
+                                relation: "BundleHistory",
+                                scope: {
+                                    where: {
+                                        date: {
+                                            like: date
+                                        },
+                                        newStatus: 'so',
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+
+            var totalAmountDone = 0
+            var total = 0
+            fetchScanedOrderStatus(res.order.__data.id,f2).then( res => {
+                // console.log(res.__data.ScannedOrderStatus[0].__data.BundleHistory)
+                for (var scos of res.__data.ScannedOrderStatus ){
+                    total = parseInt(scos.__data.to) - parseInt(scos.__data.from) + 1
+                    if (scos.__data.BundleHistory.length > 0){
+                        totalAmountDone += total
+                    }
+                }
+
+                cb(null, {
+                    totalSam: tsam,
+                    totalAmountDone: totalAmountDone,
+                    minutesProduced: tsam * totalAmountDone
+                })
+
+
+            }).catch( e=> {
+                console.log("============ Error ==============")
+                console.log(e)
+                console.log("==================================")
+            })
+
+
+            
+            
+
+        }).catch( e=> {
+            console.log("============ Error Fetchin Sam ==============")
+            console.log(e)
+            console.log("==========================")
+        })
+
+
+      }
+
+
+      OperationBulletin.remoteMethod("totalMinutesProduced", {
+        description: "Total Minutes Produced for a certain operation bulletin id",
+        accepts: [{
+          arg: "opbulid",
+          type: "string",
+          required: true
+        },
+        {
+            arg: "date",
+            type: "string",  // Note Date has to be in the following format YYYY-MM
+            required: true
+          }
+        ],
+    
+        returns: {
+          type: "object",
+          root: true
+        },
+        http: {
+          verb: "post",
+          path: "/totalMinutesProduced"
         }
     
       });
