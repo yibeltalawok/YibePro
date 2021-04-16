@@ -7,7 +7,7 @@
   },
   "properties": {
     "date": {
-      "type": "date"
+      "type": "string"
     },
     "rtf": {
       "type": "number"
