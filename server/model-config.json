@@ -272,5 +272,9 @@
   "RTFandDHU": {
     "dataSource": "mongo_db",
     "public": true
+  },
+  "CostPerMinute": {
+    "dataSource": "mongo_db",
+    "public": true
   }
 }

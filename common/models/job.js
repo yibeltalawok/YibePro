@@ -76,6 +76,7 @@ module.exports = function (Job) {
                     employeeName: element.__data.employee.__data.fullName,
                     employeeid: element.__data.employee.__data.id,
                     employeeGender: element.__data.employee.__data.gender,
+                    department: element.__data.employee.__data.department,
                     employeeProfilePicture: element.__data.employee.__data.profilePicture,
                 })
             }

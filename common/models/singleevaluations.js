@@ -23,6 +23,7 @@ module.exports = function (Singleevaluations) {
 
     Singleevaluations.find(filter).then(res => {
       for (let i = 0; i < res.length; i++) {
+        var date = res[i].date.toString().substr(4, 11);
         var styleName = res[i].__data.ScannedOrderStatus.__data.Order.orderNumber;
         var bunddleNum = res[i].__data.ScannedOrderStatus.bundleNo;
         var linenum = res[i].linenum;
@@ -35,7 +36,7 @@ module.exports = function (Singleevaluations) {
         var defect = res[i].total;
         var quantitychecked = res[i].quantitychecked;
         var stateEva = res[i].__data.ScannedOrderStatus.state;
-        var row = { styleName, bunddleNum, linenum, size, ilevel, imethod, lotquantity, aqllvel, samplesize, defect, quantitychecked, stateEva };
+        var row = { date, styleName, bunddleNum, linenum, size, ilevel, imethod, lotquantity, aqllvel, samplesize, defect, quantitychecked, stateEva };
 
         if (orderId === "")
           data.push(row);
