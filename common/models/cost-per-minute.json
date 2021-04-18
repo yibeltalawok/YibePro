@@ -1,5 +1,5 @@
 {
-  "name": "RTFandDHU",
+  "name": "CostPerMinute",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -7,21 +7,24 @@
   },
   "properties": {
     "date": {
-      "type": "string"
+      "type": "date"
     },
-    "rtf": {
+    "costPerDay": {
       "type": "number"
     },
-    "dhu": {
+    "costPerMonth": {
       "type": "number"
     },
-    "totalGarmentChecked": {
+    "costPerHour": {
       "type": "number"
     },
-    "firstTimePass": {
+    "costPerMinute": {
       "type": "number"
     },
-    "totalDefect": {
+    "workingDay": {
+      "type": "number"
+    },
+    "minutesPerDay": {
       "type": "number"
     }
   },
