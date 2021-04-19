@@ -8,7 +8,7 @@ module.exports = function(BundleHistory) {
         let garmentQuantity = 0;
         const { ScannedOrderStatus } = BundleHistory.app.models;
       
-        let res = await BundleHistory.find({where: {and: [{date: {like: dt}},{or: [{oldStatus:"si"}, {oldStatus: "fi"}, {oldStatus: "pi"}]}]} });
+        let res = await BundleHistory.find({where: {and: [{date: {like: dt}}, {newStatus:"so"}]} });
         // console.log(res)
         for (let i = 0; i < res.length; i++) {
             let bundleid = res[i].scannedOrderStatusId;
@@ -40,7 +40,7 @@ module.exports = function(BundleHistory) {
       let quantity = 0;
       const { ScannedOrderStatus } = BundleHistory.app.models;
       
-        let res = await BundleHistory.find({where: {and: [{date: {like: dt}},{lineNumber: ln},{or: [{oldStatus:"si"}, {oldStatus: "fi"}, {oldStatus: "pi"}]}]} });
+        let res = await BundleHistory.find({where: {and: [{date: {like: dt}},{lineNumber: ln}, {newStatus:"so"}]} });
         // console.log(res);
         for (let i = 0; i < res.length; i++) {
           let bundleid = res[i].scannedOrderStatusId;

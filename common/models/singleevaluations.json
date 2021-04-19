@@ -7,28 +7,23 @@
   },
   "properties": {
     "date": {
-      "type": "string",
+      "type": "date",
       "required": true
     },
     "size": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "color": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "imethod": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "ilevel": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "lotquantity": {
-      "type": "number",
-      "required": true
+      "type": "number"
     },
     "aqllvel": {
       "type": "string"

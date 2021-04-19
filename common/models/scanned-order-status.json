@@ -40,6 +40,10 @@
       "type": "string",
       "default": "pending"
     },
+    "checkedDate": {
+      "type": "string",
+      "default": ""
+    },
     "checked": {
       "type": "boolean"
     }
