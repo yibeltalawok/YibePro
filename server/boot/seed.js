@@ -5,6 +5,10 @@ const seedRoles = async server => {
     {
       name: "admin",
       description: "Admin"
+    },
+    {
+      name: "employee",
+      description: "employee"
     }
   ];
   const { UserRole } = server.models;
