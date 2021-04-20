@@ -144,8 +144,11 @@ module.exports = function (Job) {
               
             }
             final.forEach(item => {
-              var ef =  ((item.totalad * item.totalsam) / (item.totalwhr)) * 100
-              item.efficiency += parseFloat(ef.toFixed(2)); 
+                if(item.totalwhr !== 0){
+                    var ef =  ((item.totalad * item.totalsam) / (item.totalwhr)) * 100
+                    item.efficiency += parseFloat(ef.toFixed(2));
+                }
+                
             })
             cb(null, final) // Final callback
         })

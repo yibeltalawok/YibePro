@@ -127,4 +127,64 @@ module.exports = function(BundleHistory) {
   
     });
 
+    BundleHistory.remoteMethod("getTotals", {
+      description: "Get date specific Total Orders, Total Sewings, Total Cuttings, Total finshings",
+  
+      accepts: [{
+        arg: "date",
+        type: "string",
+        required: true
+      },
+      ],
+  
+      returns: {
+        type: "object",
+        root: true
+      },
+  
+      http: {
+        verb: "post",
+        path: "/getTotals"
+      }
+    });
+  
+    BundleHistory.getTotals = (
+      date,
+      cb
+    ) => {
+      var totals = [];
+      var sewing = 0;
+      var cutting = 0;
+      var finishing = 0;
+      BundleHistory.find({
+        where: { date: {like: date} },
+      }).then( res => {
+        //console.log(res.length);
+        res.forEach(item => {
+          // console.log("====new suff======")
+          // console.log(item.__data.newStatus)
+          item = item.__data.newStatus;
+          //console.log(item);
+          switch (item) {
+            case 'so':
+              sewing+=1;
+              break;
+            case 'co':
+              cutting+=1;
+              break;
+            case 'fo':
+              finishing+=1;
+              break;
+            default:
+              break;
+          }
+        });
+        totals.push(sewing, cutting, finishing);
+        // console.log(totals)
+        cb(null, totals)
+      })
+
+      
+    }
+
 };

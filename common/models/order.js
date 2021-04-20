@@ -500,6 +500,35 @@ module.exports = function (Order) {
     }
   });
 
+ Order.remoteMethod("getRecents", {
+   description: "Get recent orders up to a certain provided number",
+   accepts: [{
+     arg: "amount",
+     type: "number",
+     required: "true"
+   }],
+   returns: {
+     type: "object",
+     root: true
+   },
+   http: {
+     verb: "post",
+     path: "/getRecents"
+   }
+ });
 
+ Order.getRecents = (amount, cb) => {
+   let data = [];
+   amount -= 1;
+   Order.find({include: [
+    "Customer"
+  ]}).then(res => {
+     res.forEach((item, index) => {
+       if(index <= amount) data.push(item)
+     });
+     //console.log(data);
+     cb(null, data);
+  });
+ }
 
 };
