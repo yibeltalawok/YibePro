@@ -206,11 +206,15 @@ module.exports = function(OperationBulletin) {
                     }
                 }
 
-                cb(null, {
+                let obj = {
                     totalSam: tsam,
                     totalAmountDone: totalAmountDone,
                     minutesProduced: tsam * totalAmountDone
-                })
+                };
+                let arr = [];
+                arr.push(obj);
+
+                cb(null, arr)
 
 
             }).catch( e=> {

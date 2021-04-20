@@ -7,12 +7,12 @@
   },
   "properties": {
     "date": {
-      "type": "date"
-    },
-    "costPerDay": {
-      "type": "number"
+      "type": "string"
     },
     "costPerMonth": {
+      "type": "number"
+    },
+    "costPerDay": {
       "type": "number"
     },
     "costPerHour": {
@@ -21,7 +21,10 @@
     "costPerMinute": {
       "type": "number"
     },
-    "workingDay": {
+    "workingDays": {
+      "type": "number"
+    },
+    "workingHours": {
       "type": "number"
     },
     "minutesPerDay": {
