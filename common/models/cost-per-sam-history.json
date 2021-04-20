@@ -24,7 +24,7 @@
     "year": {
       "type": "string"
     },
-    "totalSamProduced": {
+    "totalMinuteProduced": {
       "type": "string",
       "default": "0"
     },
