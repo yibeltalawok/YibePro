@@ -277,20 +277,24 @@ module.exports = function (Job) {
                                             //     break;
                                             // }
                                             else if(res[i].operationId.toString() != jobs[m].operationId.toString() ){
-                                                console.log(res[i].operationId + " is not equalt to: "+jobs[m].operationId);
-                                                console.log("Ready to be assigned");
+                                                // console.log(res[i].operationId + " is not equalt to: "+jobs[m].operationId);
+                                                // console.log("Ready to be assigned");
                                                 assignJob(job);
                                             }
                                             
                                         }
                                     }
                                 })
+                                // cb(null, true);
                             }
                             else{
                                 
                                 console.log(rs[j].__data.fullName + " is absent.");
+                                // cb(null, false);
                                 
                             }
+
+                            
                             
                         }
                         
@@ -301,6 +305,7 @@ module.exports = function (Job) {
                 })
     
             }
+            cb(null, true);
         })
         
     }
