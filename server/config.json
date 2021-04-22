@@ -1,7 +1,12 @@
+
 {
   "restApiRoot": "/api",
   "host": "0.0.0.0",
   "port": 7000,
+  "swagger":{
+       "protocol": "https"
+      },
+  "url": "https://localhost:7000/",
   "remoting": {
     "context": false,
     "rest": {
