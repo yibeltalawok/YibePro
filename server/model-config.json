@@ -276,5 +276,9 @@
   "CostPerMinute": {
     "dataSource": "mongo_db",
     "public": true
+  },
+  "Notification": {
+    "dataSource": "mongo_db",
+    "public": true
   }
 }
