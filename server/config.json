@@ -1,7 +1,9 @@
+
 {
   "restApiRoot": "/api",
   "host": "0.0.0.0",
   "port": 7000,
+  
   "remoting": {
     "context": false,
     "rest": {
@@ -22,3 +24,4 @@
   "legacyExplorer": false,
   "logoutSessionsOnSensitiveChanges": true
 }
+

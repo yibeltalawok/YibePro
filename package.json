@@ -34,6 +34,8 @@
     "node-pre-gyp": "^0.15.0",
     "qrcode": "^1.4.4",
     "serve-favicon": "^2.0.1",
+    "socket.io": "^4.0.1",
+    "socketio-auth": "^0.1.1",
     "strong-error-handler": "^2.0.0"
   },
   "devDependencies": {
