@@ -132,12 +132,7 @@ module.exports = function (OperationalCost) {
     var fetchOpCost = async function(fromdate, todate){
        var data = await OperationalCost.find(
             {
-            where: {
-                date: {
-                    gt: fromdate,
-                    lt: todate
-                }
-            }
+            where: {and:[{date:{gte: fromdate}}, {date: {lte: todate}}]}
         })
 
         return Promise.resolve(data)
