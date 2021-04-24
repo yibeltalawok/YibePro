@@ -139,4 +139,71 @@ module.exports = function(Efficiency) {
         });
 
 
+        Efficiency.formattedEfficiency = ( 
+          startDate,
+          endDate,
+          cb
+        ) => {
+          let data = []
+          Efficiency.find({ 
+            where: {
+              date: {
+                  between: [startDate, endDate],
+              },
+            },
+          }).then(res => {
+            res.forEach(item => {
+              item = item.__data;
+              let line = item.line;
+              let date = item.date;
+              let efficiency = item.efficiency;
+
+              const found = data.some(el => el.line == `${line}`)
+              if(found) {
+                data.forEach(i => {
+                  if(i.line === line){
+                    i.eff.push({date, efficiency})
+                  }
+                })
+
+
+                
+              }
+              else {
+                let eff = [{date, efficiency}];
+                data.push({line, eff});
+              } 
+            });
+            cb(null, data)
+          });
+        }
+  
+        
+        Efficiency.remoteMethod("formattedEfficiency", {
+          description: "Get formatted efficiency suitable for charts",
+          accepts: [{
+            arg: "startDate",
+            type:"string",
+            required: true
+          },
+          {
+            arg: "endDate",
+            type:"string",
+            required: true
+          },
+          ],
+          returns: {
+              type: [
+                "object"
+              ],
+              root: true
+            },
+          
+          http: {
+            verb: "post",
+            path: "/formattedEfficiency"
+          }
+        });
+
+
 };
