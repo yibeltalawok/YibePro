@@ -1,55 +1,55 @@
 'use strict';
 var pubsub = require('../../server/pubsub.js');
 var loopback = require('loopback');
-module.exports = function(Line) {
+module.exports = function (Line) {
 
   Line.observe('after save', function (ctx, next) {
     var socket = Line.app.io;
-    if(ctx.isNewInstance){
-        //Now publishing the data..
-        pubsub.publish(socket, {
-            collectionName : 'Line',
-            data: ctx.instance,
-            method: 'POST'
-        });
-    }else{
-        //Now publishing the data..
-        pubsub.publish(socket, {
-            collectionName : 'Line',
-            data: ctx.instance,
-            modelId: ctx.instance.id,
-            method: 'PUT'
-        });
+    if (ctx.isNewInstance) {
+      //Now publishing the data..
+      pubsub.publish(socket, {
+        collectionName: 'Line',
+        data: ctx.instance,
+        method: 'POST'
+      });
+    } else {
+      //Now publishing the data..
+      pubsub.publish(socket, {
+        collectionName: 'Line',
+        data: ctx.instance,
+        modelId: ctx.instance.id,
+        method: 'PUT'
+      });
     }
     console.log("=====================================")
     console.log("pushed")
     console.log("=====================================")
     //Calling the next middleware..
     next();
-});
+  });
 
 
-Line.deleteAll = (cb) => {
-  try {
-    Line.find({}, (err, res) => {
-      cb(null, res)
-    })
-  } catch (error) {
-    throw new Error("Internal server error try again");
+  Line.deleteAll = (cb) => {
+    try {
+      Line.find({}, (err, res) => {
+        cb(null, res)
+      })
+    } catch (error) {
+      throw new Error("Internal server error try again");
+    }
   }
-}
-Line.remoteMethod("deleteAll", {
-  description: "Delete all Productionhistory",
-  // accepts: [],
-  returns: {
-    type: "object",
-    root: true
-  },
-  http: {
-    verb: "delete",
-    path: "/deleteAll"
-  }
-});
+  Line.remoteMethod("deleteAll", {
+    description: "Delete all Productionhistory",
+    // accepts: [],
+    returns: {
+      type: "object",
+      root: true
+    },
+    http: {
+      verb: "delete",
+      path: "/deleteAll"
+    }
+  });
 
 
   //   Line.beforeRemote("create", function (ctx, sa, next) {
@@ -67,9 +67,9 @@ Line.remoteMethod("deleteAll", {
 
   //     });
 
-      var fetchLine = async function(linex){
-        var data = await Line.find( { where: { number: linex }})
-        return Promise.resolve(data); 
-      }
+  var fetchLine = async function (linex) {
+    var data = await Line.find({ where: { number: linex } })
+    return Promise.resolve(data);
+  }
 
 };
