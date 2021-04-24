@@ -186,5 +186,60 @@ module.exports = function(BundleHistory) {
 
       
     }
+    BundleHistory.remoteMethod("getTotalad", {
+      description: "Get date specific Total Amount Done per line",
+  
+      accepts: [{
+        arg: "date",
+        type: "string",
+        required: true
+      },
+      ],
+  
+      returns: {
+        type: "object",
+        root: true
+      },
+  
+      http: {
+        verb: "post",
+        path: "/getTotalad"
+      }
+    });
+  
+    BundleHistory.getTotalad = (
+      date,
+      cb
+    ) => {
+      var data = [];
+      BundleHistory.find({where: { date: {like: date}, newStatus: 'so' },}).then( res => {
+        var distlineNumber = [];
+        var existlineNumber = 0;
 
+      for (let i = 0; i < res.length; i++) {
+        for (let l = 0; l < distlineNumber.length; l++) {
+          if(res[i].lineNumber === distlineNumber[l]){
+            existlineNumber =1;
+            break;
+          }else existlineNumber = 0;
+        }
+        if(existlineNumber === 0)
+          distlineNumber.push(res[i].lineNumber);
+      }
+
+      for (let l = 0; l < distlineNumber.length; l++) {
+        var counter = 0;
+        for (let i = 0; i < res.length; i++) {
+          if(distlineNumber[l] === res[i].lineNumber)
+            counter += 1;
+        }
+
+        data.push({line: distlineNumber[l], totalad: counter});
+      }
+
+        cb(null, data)
+      })
+
+      
+    }
 };
