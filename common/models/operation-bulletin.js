@@ -44,6 +44,7 @@ module.exports = function(OperationBulletin) {
         var defectInfo = [];
         var modulename;
         var imgurl;
+        var date;
         
         const { module } = OperationBulletin.app.models
         var result = await module.find({ where: { OperationBulletinId: val } });
@@ -52,6 +53,7 @@ module.exports = function(OperationBulletin) {
             modulename = result[j].modulename;
             imgurl = result[j].imageurl;
             moduleId = result[j].id;
+            date = result[j].date;
             var dfct = result[j].defects;
             defectInfo = []
             for (let k = 0; k < dfct.length; k++) {
@@ -64,7 +66,7 @@ module.exports = function(OperationBulletin) {
             }
 
             // obj = {modulename, imgurl, defects}
-            mdls.push({modulename, imgurl, moduleId, defectInfo})
+            mdls.push({modulename, imgurl, date, moduleId, defectInfo})
         }
         return Promise.resolve(mdls);
             
@@ -140,7 +142,7 @@ module.exports = function(OperationBulletin) {
           path: "/modulesInOrder"
         }
     
-      });
+    });
 
       // Fetches Operation billetins with operations included
       var fetchOperationBulletingWithOperations = async function(id, f){

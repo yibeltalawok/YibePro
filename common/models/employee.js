@@ -566,4 +566,129 @@ module.exports = function (Employee) {
         }
     });
 
+    let fetchEmployee = async function(dpt, date, val){
+        if(dpt == undefined){
+            if(val == undefined){
+                let emps = await Employee.all({
+                    include:{
+                        relation: 'attendances',
+                        scope: {
+                            where: {dateAttended: {like: date}}
+                        }
+                    },
+                });
+                return Promise.resolve(emps);
+            }
+            else{
+                let emps = await Employee.all({
+                    include:{
+                        relation: 'attendances',
+                        scope: {
+                            where: {and: [{dateAttended: {like: date}}, {value: val}]}
+                        }
+                    },
+                });
+                return Promise.resolve(emps);
+            }
+        }
+        else{
+            if(val == undefined){
+                let emps = await Employee.all({
+                    where: { department: dpt }, 
+                    include:{
+                        relation: 'attendances',
+                        scope: {
+                            where: {dateAttended: {like: date}}
+                        }
+                    },
+                });
+                return Promise.resolve(emps);
+            }
+            else{
+                let emps = await Employee.all({
+                    where: { department: dpt }, 
+                    include:{
+                        relation: 'attendances',
+                        scope: {
+                            where: {and: [{dateAttended: {like: date}}, {value: val}]}
+                        }
+                    },
+                });
+                return Promise.resolve(emps);
+            }
+        }
+        
+    };
+
+    Employee.getEmployeeByAttendance = (department, date, val, cb) =>{
+        // console.log(department)
+        // console.log(date)
+        // console.log(val)
+        
+        fetchEmployee(department, date, val).then(res =>{
+            let arr = [];
+            for (let i = 0; i < res.length; i++) {
+                let fullname = res[i].fullName;
+                let profilepic = res[i].profilePicture;
+                let department = res[i].department;
+
+                let att = res[i].__data.attendances;
+                
+                
+                // console.log(att.length);
+                if(att.length>0){
+                    let attarray = [];
+                    let dateattended = res[i].__data.attendances[0].dateAttended;
+                    let val = res[i].__data.attendances[0].value;
+
+                    let attObj = {dateAttended: dateattended, value: val};
+                    let obj = {fullName: fullname, profilePic: profilepic, department: department, attendance: attObj };
+                    arr.push(obj);
+
+                    if(i == res.length - 1){
+                        cb(null, arr);
+                    }
+                }
+                else{
+                    if(i == res.length - 1){
+                        cb(null, []);
+                    }
+                }
+                
+
+                
+            }
+            
+        });
+    }
+
+    Employee.remoteMethod("getEmployeeByAttendance", {
+        description: "Get Employees by attendance in a given department",
+        accepts: [{
+                arg: "department",
+                type: "string"
+            },
+            {
+                arg: "date",
+                type: "string",
+                required: true
+            },
+            {
+                arg: "value",
+                type: "string"
+            }
+            
+        ],
+    
+        returns: {
+          type: "object",
+          root: true
+        },
+        http: {
+          verb: "get",
+          path: "/getEmployeeByAttendance"
+        }
+    
+      });
+
 };

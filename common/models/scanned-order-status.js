@@ -210,7 +210,7 @@ module.exports = function (ScannedOrderStatus) {
             ScannedOrderStatus.find({}, (err, res) => {
                 cb(null, res)
             })
-        } 
+        }
         catch (error) {
             throw new Error("Internal server error try again");
         }
@@ -237,25 +237,25 @@ module.exports = function (ScannedOrderStatus) {
         return Promise.resolve(data);
     }
 
-    var updateScannedOrderStatus = async function(bndlid, status){
-        await ScannedOrderStatus.findById(bndlid, function(err, instance){
-            if(err){
+    var updateScannedOrderStatus = async function (bndlid, status) {
+        await ScannedOrderStatus.findById(bndlid, function (err, instance) {
+            if (err) {
                 //skip
             }
-            else{
-                instance.updateAttributes({type: status});
+            else {
+                instance.updateAttributes({ type: status });
             }
         });
     }
 
-    var registerBundleHistory = async function(currentStatus, newStatus, cleandate, lineNumber, bundleid){
-        const {BundleHistory} = ScannedOrderStatus.app.models;
-        await BundleHistory.create([{oldStatus: currentStatus, newStatus: newStatus, date: cleandate, lineNumber: lineNumber, scannedOrderStatusId: bundleid}]);
+    var registerBundleHistory = async function (currentStatus, newStatus, cleandate, lineNumber, bundleid) {
+        const { BundleHistory } = ScannedOrderStatus.app.models;
+        await BundleHistory.create([{ oldStatus: currentStatus, newStatus: newStatus, date: cleandate, lineNumber: lineNumber, scannedOrderStatusId: bundleid }]);
     }
 
-    ScannedOrderStatus.changeBundleStatus = (bundleid, action, linenum, cb) =>{
+    ScannedOrderStatus.changeBundleStatus = (bundleid, action, linenum, cb) => {
 
-        fetchScannedOrderStatus(bundleid).then(res =>{
+        fetchScannedOrderStatus(bundleid).then(res => {
             // console.log(res)
             let currentStatus = res[0].type;
             let newStatus = '';
@@ -268,7 +268,7 @@ module.exports = function (ScannedOrderStatus) {
             //     console.log("Can't step down!")
             // }
 
-            if(action == 'f'){
+            if (action == 'f') {
                 switch (currentStatus) {
                     case "ci":
                         newStatus = "co";
@@ -293,9 +293,9 @@ module.exports = function (ScannedOrderStatus) {
                         break;
                 }
             }
-            else if(action == 'b'){
+            else if (action == 'b') {
                 switch (currentStatus) {
-                    
+
                     case "co":
                         newStatus = "ci";
                         break;
@@ -320,13 +320,13 @@ module.exports = function (ScannedOrderStatus) {
                 }
             }
             // update ScannedOrderStatus with the new status
-            updateScannedOrderStatus(bundleid, newStatus).then(() =>{
+            updateScannedOrderStatus(bundleid, newStatus).then(() => {
                 // register a new bundle history with the provided data.
                 // i.e. currentStatus, newStatus, date, lineNumber, bundleId
-                
+
                 var dt = new Date();
                 var isoFormat = dt.toISOString();
-                var substringedDt = isoFormat.substr(0,19);
+                var substringedDt = isoFormat.substr(0, 19);
                 var cleandate = substringedDt.replace('T', ' ');
 
                 registerBundleHistory(currentStatus, newStatus, cleandate, lineNumber, bundleid);
@@ -334,11 +334,11 @@ module.exports = function (ScannedOrderStatus) {
                 cb(null, true);
             })
 
-            
-            
+
+
         })
     };
-    
+
     ScannedOrderStatus.remoteMethod("changeBundleStatus", {
         description: "Get the quantity of the garment processed in a given date on the three statuses si, fi and pi",
         accepts: [
@@ -358,15 +358,15 @@ module.exports = function (ScannedOrderStatus) {
                 required: true
             },
         ],
-    
+
         returns: {
-          type: "object",
-          root: true
+            type: "object",
+            root: true
         },
-        
+
         http: {
-          verb: "post",
-          path: "/changeBundleStatus"
+            verb: "post",
+            path: "/changeBundleStatus"
         }
     });
 
