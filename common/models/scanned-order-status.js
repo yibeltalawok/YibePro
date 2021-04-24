@@ -320,17 +320,21 @@ module.exports = function (ScannedOrderStatus) {
                 }
             }
             // update ScannedOrderStatus with the new status
-            updateScannedOrderStatus(bundleid, newStatus);
+            updateScannedOrderStatus(bundleid, newStatus).then(() => {
+                // register a new bundle history with the provided data.
+                // i.e. currentStatus, newStatus, date, lineNumber, bundleId
 
-            // register a new bundle history with the provided data.
-            // i.e. currentStatus, newStatus, date, lineNumber, bundleId
+                var dt = new Date();
+                var isoFormat = dt.toISOString();
+                var substringedDt = isoFormat.substr(0, 19);
+                var cleandate = substringedDt.replace('T', ' ');
 
-            var dt = new Date();
-            var isoFormat = dt.toISOString();
-            var substringedDt = isoFormat.substr(0, 19);
-            var cleandate = substringedDt.replace('T', ' ');
+                registerBundleHistory(currentStatus, newStatus, cleandate, lineNumber, bundleid);
 
-            registerBundleHistory(currentStatus, newStatus, cleandate, lineNumber, bundleid);
+                cb(null, true);
+            })
+
+
 
         })
     };

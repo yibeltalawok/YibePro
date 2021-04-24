@@ -14,6 +14,9 @@
       "type": "string",
       "required": true
     },
+    "description": {
+      "type": "string"
+    },
     "type": {
       "type": "string",
       "default": "MI"

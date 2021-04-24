@@ -63,12 +63,12 @@ module.exports = function (CostPerSamHistory) {
         return Promise.resolve(data)
     }
 
-    var fetchOpTotalMins = async function(opid, dt){
-        var {OperationBulletin} = CostPerSamHistory.app.models;
-        // console.log(opid + " " + dt)
-         var data = await OperationBulletin.totalMinutesProduced(opid.toString(),dt.toString())
-        return Promise.resolve(data)
-    }
+    // var fetchOpTotalMins = async function(opid, dt){
+    //     var {OperationBulletin} = CostPerSamHistory.app.models;
+    //     // console.log(opid + " " + dt)
+    //      var data = await OperationBulletin.totalMinutesProduced(opid.toString(),dt.toString())
+    //     return Promise.resolve(data)
+    // }
 
 
     CostPerSamHistory.getCostPerSamWithDateRange = (
