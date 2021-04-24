@@ -7,17 +7,10 @@ module.exports = {
             var collectionName = options.collectionName;
             var method         = options.method;
             var data           = options.data;
-            var modelId        = options.modelId;
-            if(method === 'POST'){
-                var name = '/' + collectionName + '/' + method;
-                console.log('Posting new data ' + name);
-
-                socket.emit(collectionName, data);
-            }
-            else{
-                var name = '/' + collectionName + '/' + modelId + '/' + method;
-                socket.emit(name, data);
-            }  
+            
+            // the first argument is the channel name and the second one is the data 
+            if(method === 'POST') socket.emit(collectionName+"_"+method, data);
+           
         }else{
             throw 'Error: Option must be an object type';
         }

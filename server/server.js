@@ -82,24 +82,24 @@ boot(app, __dirname, err => {
 
       require('socketio-auth')(app.io, {
         authenticate: function (socket, value, callback) {
-
-            var AccessToken = app.models.UserAccount;
-            //get credentials sent by the client
-            var token = AccessToken.find({
-              where:{
-                and: [ { id: value.id }]
-              }
-            }, function(err, tokenDetail){
-              if (err) throw err;
-              if(tokenDetail.length){
-                console.log("autenticated")
-                callback(null, true);
-              } else {
-                console.log("Error")
-
-                callback(null, false);
-              }
-            }); //find function..    
+          callback(null, true);
+            // var AccessToken = app.models.UserAccount;
+            // //get credentials sent by the client
+            // var token = AccessToken.find({
+            //   where:{
+            //     and: [ { id: value.id }]
+            //   }
+            // }, function(err, tokenDetail){
+            //   if (err) throw err;
+            //   if(tokenDetail.length){
+            //     console.log("autenticated")
+            //     callback(null, true);
+            //   } else {
+            //     console.log("Error")
+            //     console.log(value)
+            //     callback(null, false);
+            //   }
+            // }); //find function..    
           } //authenticate function..
       });
 
