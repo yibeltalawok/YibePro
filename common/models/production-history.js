@@ -1,6 +1,21 @@
 'use strict';
+var pubsub = require('../../server/pubsub.js');
+var loopback = require('loopback');
 
 module.exports = function (Productionhistory) {
+  Productionhistory.observe('after save', function (ctx, next) {
+        //Now publishing the data..
+        var socket = Productionhistory.app.io;
+        pubsub.publish(socket, {
+            collectionName: 'Productionhistory',
+            data: ctx.instance,
+            method: 'POST'
+        });
+        //Calling the next middleware..
+        next();
+    });
+
+
   //getHourlyProductionReport
   var getHourlyProductionReportDetaile = async function (date, hour, empIdDist, orderIdDist) {
     var result = [];
