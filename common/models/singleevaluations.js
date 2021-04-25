@@ -19,7 +19,7 @@ module.exports = function (Singleevaluations) {
         collectionName: 'Singleevaluations',
         data: ctx.instance,
         modelId: ctx.instance.id,
-        method: 'PUT'
+        method: 'POST'
       });
     }
     //Calling the next middleware..
