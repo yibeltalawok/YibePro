@@ -68,38 +68,19 @@ app.start = function() {
 boot(app, __dirname, err => {
   if (err) throw err;
   if (require.main === module) {
-    // app.start();
+
     var options={
       cors: {
-        origin: "http://localhost:8080",
-        // methods: ["GET", "POST"],
-        // allowedHeaders: ["my-custom-header"],
-        credentials: true
+        origin: '*',
       },
-      origins:["http://localhost:8080"],
+      // origins:["http://localhost:8080"],
      }
       app.io = require('socket.io')(app.start(), options);
 
       require('socketio-auth')(app.io, {
         authenticate: function (socket, value, callback) {
           callback(null, true);
-            // var AccessToken = app.models.UserAccount;
-            // //get credentials sent by the client
-            // var token = AccessToken.find({
-            //   where:{
-            //     and: [ { id: value.id }]
-            //   }
-            // }, function(err, tokenDetail){
-            //   if (err) throw err;
-            //   if(tokenDetail.length){
-            //     console.log("autenticated")
-            //     callback(null, true);
-            //   } else {
-            //     console.log("Error")
-            //     console.log(value)
-            //     callback(null, false);
-            //   }
-            // }); //find function..    
+         
           } //authenticate function..
       });
 
