@@ -12,6 +12,15 @@
     "RowCount": true
   },
   "properties": {
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "status": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
     "title": {
       "type": "string",
       "required": true

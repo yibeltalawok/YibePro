@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function (Performance) {
-
     Performance.calculatePerformance = (cb) => {
         try {
             const { Job } = Performance.app.models
