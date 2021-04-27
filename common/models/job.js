@@ -60,7 +60,7 @@ module.exports = function (Job) {
                 var workTime = ((toD - fromD) / 1000) / 60;
 
                  // Calculate Sam for a specifi job
-                var sam = parseInt(element.__data.operation.__data.sam.toString())
+                var sam = parseFloat(element.__data.operation.__data.sam.toString())
                 
                  // Calculate Performance for a specifi job
                 var pf =  ((amountDone * sam) / (workTime - lostTime)) * 100
