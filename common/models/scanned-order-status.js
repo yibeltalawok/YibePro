@@ -252,8 +252,18 @@ module.exports = function (ScannedOrderStatus) {
         const { BundleHistory } = ScannedOrderStatus.app.models;
         await BundleHistory.create([{ oldStatus: currentStatus, newStatus: newStatus, date: cleandate, lineNumber: lineNumber, scannedOrderStatusId: bundleid }]);
     }
+    var getIdOfStepUpHistory = async function(bundleId, currentStatus, newStatus){
+        const { BundleHistory } = ScannedOrderStatus.app.models;
+        let history = await BundleHistory.find({where:{and:[{scannedOrderStatusId: bundleId}, {oldStatus: newStatus}, {newStatus: currentStatus}]}});
+        return Promise.resolve(history);
+    }
+    // var deleteStepUpHistory = async function(historyId){
+    //     const {BundleHistory} = ScannedOrderStatus.app.models;
+    //     await BundleHistory.delete("/BundleHistories/"+historyId);
+    // }
 
     ScannedOrderStatus.changeBundleStatus = (bundleid, action, linenum, cb) => {
+        const {BundleHistory} = ScannedOrderStatus.app.models;
 
         fetchScannedOrderStatus(bundleid).then(res => {
             // console.log(res)
@@ -318,6 +328,13 @@ module.exports = function (ScannedOrderStatus) {
                         newStatus = "pi";
                         break;
                 }
+
+                // first find the id of the bundle history to be stepped down & delete it's history of stepped up.
+                getIdOfStepUpHistory(bundleid, currentStatus, newStatus).then(rs =>{
+                    let historyId = rs[0].id;
+                    BundleHistory.destroyById(historyId);
+
+                })
             }
             // update ScannedOrderStatus with the new status
             updateScannedOrderStatus(bundleid, newStatus).then(() => {
