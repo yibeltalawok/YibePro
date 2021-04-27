@@ -567,8 +567,8 @@ module.exports = function (Employee) {
     });
 
     let fetchEmployee = async function(dpt, date, val){
-        if(dpt == undefined){
-            if(val == undefined){
+        if(dpt == 'all'){
+            if(val == 'all'){
                 let emps = await Employee.all({
                     include:{
                         relation: 'attendances',
@@ -577,6 +577,8 @@ module.exports = function (Employee) {
                         }
                     },
                 });
+                console.log("=========Date Only=============")
+                console.log(emps.length)
                 return Promise.resolve(emps);
             }
             else{
@@ -588,11 +590,13 @@ module.exports = function (Employee) {
                         }
                     },
                 });
+                console.log("=========Date & Value Only=============")
+                console.log(emps.length)
                 return Promise.resolve(emps);
             }
         }
         else{
-            if(val == undefined){
+            if(val == 'all'){
                 let emps = await Employee.all({
                     where: { department: dpt }, 
                     include:{
@@ -602,6 +606,8 @@ module.exports = function (Employee) {
                         }
                     },
                 });
+                console.log("=========Date & Department Only=============")
+                console.log(emps.length);
                 return Promise.resolve(emps);
             }
             else{
@@ -614,6 +620,8 @@ module.exports = function (Employee) {
                         }
                     },
                 });
+                console.log("=========Date, Dapartment, value=============")
+                console.log(emps.length)
                 return Promise.resolve(emps);
             }
         }
@@ -627,37 +635,43 @@ module.exports = function (Employee) {
         
         fetchEmployee(department, date, val).then(res =>{
             let arr = [];
-            for (let i = 0; i < res.length; i++) {
-                let fullname = res[i].fullName;
-                let profilepic = res[i].profilePicture;
-                let department = res[i].department;
-
-                let att = res[i].__data.attendances;
-                
-                
-                // console.log(att.length);
-                if(att.length>0){
-                    let attarray = [];
-                    let dateattended = res[i].__data.attendances[0].dateAttended;
-                    let val = res[i].__data.attendances[0].value;
-
-                    let attObj = {dateAttended: dateattended, value: val};
-                    let obj = {fullName: fullname, profilePic: profilepic, department: department, attendance: attObj };
-                    arr.push(obj);
-
-                    if(i == res.length - 1){
-                        cb(null, arr);
+            if(res.length > 0){
+                for (let i = 0; i < res.length; i++) {
+                    let fullname = res[i].fullName;
+                    let profilepic = res[i].profilePicture;
+                    let department = res[i].department;
+    
+                    let att = res[i].__data.attendances;
+                    
+                    
+                    // console.log(att.length);
+                    if(att.length>0){
+                        let attarray = [];
+                        let dateattended = res[i].__data.attendances[0].dateAttended;
+                        let val = res[i].__data.attendances[0].value;
+    
+                        let attObj = {dateAttended: dateattended, value: val};
+                        let obj = {fullName: fullname, profilePic: profilepic, department: department, attendance: attObj };
+                        arr.push(obj);
+    
+                        if(i == res.length - 1){
+                            cb(null, arr);
+                        }
                     }
-                }
-                else{
-                    if(i == res.length - 1){
-                        cb(null, []);
+                    else{
+                        if(i == res.length - 1){
+                            cb(null, []);
+                        }
                     }
+                    
+    
+                    
                 }
-                
-
-                
             }
+            else{
+                cb(null, []);
+            }
+            
             
         });
     }
