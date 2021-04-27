@@ -108,13 +108,7 @@ module.exports = function (Job) {
             final  = []
             for( element of res) {
               var line = element.__data.line;
-              var amountDone = 0;
-  
-              // Calculate amount done for a specific job
-              for(ph of element.__data.ProductionHistory){
-                  var temp = ph.__data.ScannedOrderStatus.__data;
-                  amountDone += parseInt(temp.to.toString()) -  parseInt(temp.from.toString()) + 1
-              }
+             
   
               // Calculate Working time for a specific job
               var fromD = new Date(2011, 0, 1, parseInt(element.__data.from.toString().split(":")[0]), parseInt(element.__data.from.toString().split(":")[1]))
@@ -130,26 +124,19 @@ module.exports = function (Job) {
                 final.push({
                     line,
                     date,
-                    totalad: amountDone, 
+                    totalad: 0, 
                     totalsam: sam,
                     totalwhr: workTime,
                     efficiency: 0,
                 })
                 start.push(line);
               } else {
-                final[idx].totalad += amountDone;
                 final[idx].totalsam += sam;
                 final[idx].totalwhr += workTime;
               }
               
             }
-            final.forEach(item => {
-                if(item.totalwhr !== 0){
-                    var ef =  ((item.totalad * item.totalsam) / (item.totalwhr)) * 100
-                    item.efficiency += parseFloat(ef.toFixed(2));
-                }
-                
-            })
+           
             cb(null, final) // Final callback
         })
     }

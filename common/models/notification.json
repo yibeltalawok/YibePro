@@ -6,6 +6,11 @@
   "options": {
     "validateUpsert": true
   },
+  "mixins": {
+    "TimeStamp": true,
+    "SoftDelete": true,
+    "RowCount": true
+  },
   "properties": {
     "date": {
       "type": "date",
