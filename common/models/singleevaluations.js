@@ -145,7 +145,7 @@ module.exports = function (Singleevaluations) {
 
 
   Singleevaluations.remoteMethod("getDistinctLineList", {
-    description: "get distinict bunddle list inside evalution",
+    description: "get distinict line list inside single bunddle",
     accepts: { arg: "bunddleId", type: "string", required: true },
     returns: { arg: "object", root: true },
     http: { verb: "get", path: "/getDistinctLineList" }
@@ -759,4 +759,71 @@ module.exports = function (Singleevaluations) {
       path: "/getDashboardWithRange"
     }
   });
+
+
+  Singleevaluations.postSingleEvalutionDataForDHURFT = function(scannedOrderStatusId, line, ftp, cb){
+    const {ScannedOrderStatus} = Singleevaluations.app.models
+    const {defects} = Singleevaluations.app.models
+
+    let date = new Date().toISOString().substr(0,10);
+    defects.find().then(res =>{
+      try {
+        ScannedOrderStatus.findById(scannedOrderStatusId, function (err, instance) {
+          if (err) {
+              //skip
+          }
+          else {
+              instance.updateAttributes({ state: 'FTP', checkedDate: date });
+          }
+        });
+
+        var data = {date: date , linenum: line, ftp: ftp, total: 0, defectId: res[0].__data.id, scannedOrderStatusId: scannedOrderStatusId};
+        Singleevaluations.create(data);
+        cb(null, true)
+      } catch (error) {
+        cb(null, false)
+      }
+    });
+  }
+
+  Singleevaluations.remoteMethod("postSingleEvalutionDataForDHURFT",{
+    description: "Set singleEvalution data for DHU and RFT based on scanorderStatusID",
+    accepts: [
+      {arg: 'scanOrderStatusId', type: "string", required: true},
+      {arg: 'line', type: "string", required: true},
+      {arg: 'ftp', type: "boolean", required: true}
+    ],
+    returns: {type: "object", root: true},
+    http: {verb: "post", path: "/postSingleEvalutionDataForDHURFT"}
+  });
+
+  Singleevaluations.remoteMethod("getDistinctLineListWhole", {
+    description: "get distinict line list inside single evalution",
+    returns: { arg: "object", root: true },
+    http: { verb: "get", path: "/getDistinctLineListWhole" }
+  });
+
+  Singleevaluations.getDistinctLineListWhole = (cb) => {
+    var lineExist = 0;
+    var lineDist = [];
+
+    var filter = { order: 'linenum ASC' };
+    Singleevaluations.find(filter).then(res => {
+      for (var i = 0; i < res.length; i++) {
+        //Distinict line finder
+        for (var k = 0; k < lineDist.length; k++) {
+          if (res[i].linenum === lineDist[k].line) {
+            lineExist = 1;
+            break;
+          } else lineExist = 0;
+        }
+
+        if (lineExist == 0) {
+          lineDist.push({ line: res[i].linenum });
+        }
+      }
+      cb(null, lineDist);
+    });
+  }
+
 };

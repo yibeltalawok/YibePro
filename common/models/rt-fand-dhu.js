@@ -5,22 +5,12 @@ module.exports = function (Rtfanddhu) {
 
     Rtfanddhu.observe('after save', function (ctx, next) {
         var socket = Rtfanddhu.app.io;
-        if (ctx.isNewInstance) {
-            //Now publishing the data..
-            pubsub.publish(socket, {
-                collectionName: 'Rtfanddhu',
-                data: ctx.instance,
-                method: 'POST'
-            });
-        } else {
-            //Now publishing the data..
-            pubsub.publish(socket, {
-                collectionName: 'Rtfanddhu',
-                data: ctx.instance,
-                modelId: ctx.instance.id,
-                method: 'PUT'
-            });
-        }
+        //Now publishing the data..
+        pubsub.publish(socket, {
+            collectionName: 'Rtfanddhu',
+            data: ctx.instance,
+            method: 'POST'
+        });
         //Calling the next middleware..
         next();
     });

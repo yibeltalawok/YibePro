@@ -45,6 +45,10 @@
     },
     "total": {
       "type": "string"
+    },
+    "ftp":{
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],
