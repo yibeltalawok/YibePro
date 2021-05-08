@@ -9,7 +9,7 @@
     "date": {
       "type": "string"
     },
-    "rtf": {
+    "rft": {
       "type": "number"
     },
     "dhu": {
@@ -18,10 +18,13 @@
     "totalGarmentChecked": {
       "type": "number"
     },
-    "firstTimePass": {
+    "ftp": {
       "type": "number"
     },
     "totalDefect": {
+      "type": "number"
+    },
+    "line": {
       "type": "number"
     }
   },

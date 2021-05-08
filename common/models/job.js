@@ -65,10 +65,13 @@ module.exports = function (Job) {
                  // Calculate Performance for a specifi job
                 var pf =  ((amountDone * sam) / (workTime - lostTime)) * 100
 
+                var ef =  ((amountDone * sam) / (workTime)) * 100
+
                  // Pushing to the main list
                 performances.push({
                     amountDone: amountDone, 
                     sam: sam,
+                    efficiency: parseFloat(ef.toFixed(2)),
                     workingTime: workTime,
                     lotTime: lostTime,
                     performance: parseFloat(pf.toFixed(2)),
