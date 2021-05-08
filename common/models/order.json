@@ -74,6 +74,10 @@
     "design": {
       "type": "string"
     },
+    "attachment": {
+      "type": "string",
+      "default": "noAttachment"
+    },
     "data": {
       "type": [
         {}
