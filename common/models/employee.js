@@ -577,9 +577,23 @@ module.exports = function (Employee) {
                         }
                     },
                 });
-                console.log("=========Date Only=============")
-                console.log(emps.length)
-                return Promise.resolve(emps);
+                let arr = [];
+                for (let i = 0; i < emps.length; i++) {
+
+                    let att = emps[i].__data.attendances;
+                    // console.log(att.length);
+                    // console.log("========EMPS=========")
+                    if(att.length>0){
+                        arr.push(emps[i])
+                    }
+                    if(i == emps.length -1){
+                        // console.log(arr);
+                        return Promise.resolve(arr);
+                    }
+                }
+                // console.log("=========Date Only=============")
+                // console.log(emps.length)
+                // return Promise.resolve(emps);
             }
             else{
                 let emps = await Employee.all({
@@ -590,9 +604,24 @@ module.exports = function (Employee) {
                         }
                     },
                 });
-                console.log("=========Date & Value Only=============")
-                console.log(emps.length)
-                return Promise.resolve(emps);
+
+                let arr = [];
+                for (let i = 0; i < emps.length; i++) {
+                    let att = emps[i].__data.attendances;
+                    // console.log(att.length);
+                    // console.log("========EMPS=========")
+                    if(att.length>0){
+                        arr.push(emps[i])
+                    }
+                    if(i == emps.length -1){
+                        // console.log(arr);
+                        return Promise.resolve(arr);
+                    }
+                }
+                // console.log("=========Date & Value Only=============")
+                // console.log(emps.length)
+                // console.log(emps)
+                // return Promise.resolve(emps);
             }
         }
         else{
@@ -606,9 +635,23 @@ module.exports = function (Employee) {
                         }
                     },
                 });
-                console.log("=========Date & Department Only=============")
-                console.log(emps.length);
-                return Promise.resolve(emps);
+                let arr = [];
+                for (let i = 0; i < emps.length; i++) {
+
+                    let att = emps[i].__data.attendances;
+                    // console.log(att.length);
+                    // console.log("========EMPS=========")
+                    if(att.length>0){
+                        arr.push(emps[i])
+                    }
+                    if(i == emps.length -1){
+                        // console.log(arr);
+                        return Promise.resolve(arr);
+                    }
+                }
+                // console.log("=========Date & Department Only=============")
+                // console.log(emps.length);
+                // return Promise.resolve(emps);
             }
             else{
                 let emps = await Employee.all({
@@ -620,9 +663,24 @@ module.exports = function (Employee) {
                         }
                     },
                 });
-                console.log("=========Date, Dapartment, value=============")
-                console.log(emps.length)
-                return Promise.resolve(emps);
+                let arr = [];
+                for (let i = 0; i < emps.length; i++) {
+
+                    let att = emps[i].__data.attendances;
+                    // console.log(att.length);
+                    // console.log("========EMPS=========")
+                    if(att.length>0){
+                        arr.push(emps[i])
+                    }
+                    if(i == emps.length -1){
+                        // console.log(arr);
+                        return Promise.resolve(arr);
+                    }
+                }
+                // console.log("=========Date, Dapartment, value=============")
+                // console.log(emps.length)
+                // console.log(emps)
+                // return Promise.resolve(emps);
             }
         }
         

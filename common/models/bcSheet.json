@@ -12,6 +12,9 @@
     "RowCount": true
   },
   "properties": {
+    "date": {
+      "type": "string"
+    },
     "cutNo": {
       "type": "string"
     },
