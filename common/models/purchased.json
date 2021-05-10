@@ -17,6 +17,30 @@
       "type": "string"
     },
     "totalQuantity": {
+      "type": "number"
+    },
+    "location": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "sivnumber": {
+      "type": "number"
+    },
+    "gmnumber": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "itemname": {
+      "type": "string"
+    },
+    "addition": {
       "type": "string"
     }
   },
@@ -25,7 +49,7 @@
     "inventory": {
       "type": "belongsTo",
       "model": "Invenotry",
-      "foreignKey": "",
+      "foreignKey": "inventoryId",
       "options": {
         "nestRemoting": true
       }
@@ -33,7 +57,7 @@
     "customer": {
       "type": "belongsTo",
       "model": "Customer",
-      "foreignKey": "",
+      "foreignKey": "customorId",
       "options": {
         "nestRemoting": true
       }
