@@ -14,6 +14,10 @@
     "date": {
       "type": "string"
     },
+    "shipmentDate": {
+      "type": "string",
+      "required": true
+    },
     "orderNumber": {
       "type": "string",
       "required": true
@@ -27,7 +31,13 @@
     "styleDescription": {
       "type": "string"
     },
+    "fabricDescription": {
+      "type": "string"
+    },
     "orderQuantity": {
+      "type": "string"
+    },
+    "actualOrder": {
       "type": "string"
     },
     "plannedCutQuantity": {
@@ -63,6 +73,10 @@
     },
     "design": {
       "type": "string"
+    },
+    "attachment": {
+      "type": "string",
+      "default": "noAttachment"
     },
     "data": {
       "type": [
