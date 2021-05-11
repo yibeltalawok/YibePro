@@ -7,7 +7,7 @@ module.exports = function (Issue) {
       if (resp.length > 0) {
         let temp = resp[0].__data.items
         for (let q = 0; q < temp.length; q++) {
-          itemIdPass(temp[q])
+          itemIdPass(temp[q].itemId)
             .then((result) => {
               if (result.length > 0) {
                 // for (let j = 0; j < result.length; j++) {
@@ -156,12 +156,27 @@ module.exports = function (Issue) {
   })
 
   Issue.issueRequst = (item, cb) => {
+    const { Item } = Issue.app.models
+
+    for (let i = 0; i < item.tableItem.length; i++) {
+      Item.findById(item.tableItem[i].id, function (err, instance) {
+        if (err) {
+          //skip
+        } else {
+          instance.updateAttributes({
+            available: item.tableItem[i].available - item.tableItem[i].maxSize,
+          })
+        }
+      })
+    }
+
+    Issue.create(item.common)
     cb(null, true)
   }
 
   Issue.remoteMethod('issueRequst', {
     description: 'Issue request with validation',
-    accepts: { arg: 'item', type: 'object', required: true },
+    accepts: { arg: 'item', type: 'Object', required: true },
     returns: { type: 'boolean', root: true },
     http: { verb: 'post', path: '/issueRequst' },
   })
