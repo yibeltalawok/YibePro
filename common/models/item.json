@@ -30,6 +30,10 @@
     "totalQuantity": {
       "type": "string"
     },
+    "maxSize": {
+      "type": "number",
+      "default": 0
+    },
     "unitOfMeasure": {
       "type": "string"
     },
