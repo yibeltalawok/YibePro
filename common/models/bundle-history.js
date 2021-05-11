@@ -1,6 +1,6 @@
 'use strict';
 var pubsub = require('../../server/pubsub.js');
-  var loopback = require('loopback');
+var loopback = require('loopback');
   
 module.exports = function(BundleHistory) {
   BundleHistory.observe('after save', function (ctx, next) {
