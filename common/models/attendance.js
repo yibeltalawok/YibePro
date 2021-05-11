@@ -1,5 +1,19 @@
+'use strict';
+var pubsub = require('../../server/pubsub.js');
+var loopback = require('loopback');
 
 module.exports = function (Attendance) {
+  Attendance.observe('after save', function (ctx, next) {
+    //Now publishing the data..
+    var socket = Attendance.app.io;
+    pubsub.publish(socket, {
+        collectionName: 'Attendance',
+        data: ctx.instance,
+        method: 'POST'
+    });
+    //Calling the next middleware..
+    next();
+});
 
   var rearrangeData = async function (res, disDepa, cb) {
     var data = [];
