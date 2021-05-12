@@ -11,6 +11,7 @@ module.exports = function (Issue) {
             .then((result) => {
               if (result.length > 0) {
                 // for (let j = 0; j < result.length; j++) {
+                result[0].__data.available = temp[q].issueSize
                 itemList.push(result[0])
 
                 // }
@@ -60,14 +61,15 @@ module.exports = function (Issue) {
             if (res[0].__data.items.length > 0) {
               let itemData = []
               for (let i = 0; i < res[0].__data.items.length; i++) {
-                getItems(res[0].__data.items[i])
+                getItems(res[0].__data.items[i].itemId)
                   .then((result) => {
                     itemData.push({
+                      inventoryName: result[0].__data.inventory.inventoryName,
                       itemNumber: result[0].__data.itemNumber,
                       binCardNumber: result[0].__data.binCardNumber,
                       itemName: result[0].__data.itemName,
                       unitPrice: result[0].__data.unitPrice,
-                      totalQuantity: result[0].__data.totalQuantity,
+                      totalQuantity: res[0].__data.items[i].issueSize,
                       id: result[0].__data.id,
                     })
                     if (i == res[0].__data.items.length - 1) {
@@ -108,7 +110,10 @@ module.exports = function (Issue) {
         },
       )
       const getItems = async function (itemId) {
-        let result = await Item.find({ where: { id: itemId } })
+        let result = await Item.find({
+          include: ['inventory'],
+          where: { id: itemId },
+        })
         // console.log(result)
         return Promise.resolve(result)
       }
