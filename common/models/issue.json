@@ -27,16 +27,34 @@
     "issueDate": {
       "type": "string"
     },
-    "approvedDate": {
+    "storeManaDate": {
+      "type": "string"
+    },
+    "financeDate": {
+      "type": "string"
+    },
+    "generalManadate": {
+      "type": "string"
+    },
+    "storeDate": {
       "type": "string"
     },
     "items": {
       "type": []
     },
-    "issueSignature": {
+    "storeManagerSignature": {
       "type": "string"
     },
-    "storeAdminSignature": {
+    "financeSignature": {
+      "type": "string"
+    },
+    "generalManagerSignature": {
+      "type": "string"
+    },
+    "storeSignature": {
+      "type": "string"
+    },
+    "issueSignature": {
       "type": "string"
     }
   },
@@ -58,7 +76,7 @@
         "nestRemoting": true
       }
     },
-    "issuedBy": {
+    "storeManager": {
       "type": "belongsTo",
       "model": "UserAccount",
       "foreignKey": "",
@@ -66,7 +84,31 @@
         "nestRemoting": true
       }
     },
-    "approvedBy": {
+    "finance": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "generalManager": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "stockKeeper": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "issuedBy": {
       "type": "belongsTo",
       "model": "UserAccount",
       "foreignKey": "",
