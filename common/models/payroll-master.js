@@ -489,13 +489,13 @@ module.exports = function (PayrollMaster) {
           },
         )
 
-        data.push({idno,fullName})
+        data.push({ idno, fullName })
       }
     })
   }
 
   PayrollMaster.finaceReport = function (date, cb) {
-    getPayrollMasterList(date, cb
+    getPayrollMasterList(date, cb)
   }
 
   PayrollMaster.remoteMethod('finaceReport', {
