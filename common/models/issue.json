@@ -21,6 +21,15 @@
     "state": {
       "type": "string"
     },
+    "state1": {
+      "type": "string"
+    },
+    "state2": {
+      "type": "string"
+    },
+    "state3": {
+      "type": "string"
+    },
     "reason": {
       "type": "string"
     },
@@ -28,16 +37,20 @@
       "type": "string"
     },
     "storeManaDate": {
-      "type": "string"
+      "type": "string",
+      "default": null
     },
     "financeDate": {
-      "type": "string"
+      "type": "string",
+      "default": null
     },
     "generalManadate": {
-      "type": "string"
+      "type": "string",
+      "default": null
     },
     "storeDate": {
-      "type": "string"
+      "type": "string",
+      "default": null
     },
     "items": {
       "type": []
