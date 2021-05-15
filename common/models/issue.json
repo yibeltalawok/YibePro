@@ -34,22 +34,22 @@
       "type": "string"
     },
     "issueDate": {
-      "type": "string"
+      "type": "date"
     },
     "storeManaDate": {
-      "type": "string",
+      "type": "date",
       "default": null
     },
     "financeDate": {
-      "type": "string",
+      "type": "date",
       "default": null
     },
     "generalManadate": {
-      "type": "string",
+      "type": "date",
       "default": null
     },
     "storeDate": {
-      "type": "string",
+      "type": "date",
       "default": null
     },
     "items": {
