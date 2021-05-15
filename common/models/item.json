@@ -65,18 +65,6 @@
     },
     "issueDept": {
       "type": "string"
-    },
-    "issueQTY": {
-      "type": "string"
-    },
-    "itemCatagory": {
-      "type": "string"
-    },
-    "balance": {
-      "type": "string"
-    },
-    "remarks": {
-      "type": "string"
     }
   },
   "validations": [],
