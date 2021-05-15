@@ -382,8 +382,12 @@ module.exports = function (PayrollMaster) {
       include: {
         relation: 'attendances',
         scope: { where: { dateAttended: { like: date } } },
+<<<<<<< HEAD
       }, 
       where: {id: employeeId}
+=======
+      },
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
     }
 
     return Promise.resolve(await Employee.find(filter))
@@ -416,6 +420,7 @@ module.exports = function (PayrollMaster) {
     }
 
     await PayrollMaster.find(filter).then((resPaMa) => {
+<<<<<<< HEAD
       console.log((resPaMa));
       for (let p = 0; p < resPaMa.length; p++) {
         getEmployeeDetaile(resPaMa[p].__data.employeeId, reportMonth).then(
@@ -426,11 +431,19 @@ module.exports = function (PayrollMaster) {
             //   nonTaxableProfAllow, positionalAllow, foodAllow, mobileAllow, incentiveSalary
             //   labourContribution, womanUnion, creditAssociation, costSharing, workedDays
             // }
+=======
+      for (let p = 0; p < resPaMa.length; p++) {
+        getEmployeeDetaile(resPaMa[p].__data.employeeId, reportMonth).then(
+          (resEmDe) => {
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             let idno = resEmDe[0].__data.idno
             let incentiveSalary = resEmDe[0].__data.incentiveSalary
             let fullName = resEmDe[0].__data.fullName
             let positionalAllow = resEmDe[0].__data.positionalAllow
+<<<<<<< HEAD
             let position = resEmDe[0].__data.position
+=======
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             let bankAccountNum = resEmDe[0].__data.bankAccountNum
             let mobileAllow = resEmDe[0].__data.mobileAllow
             let foodAllow = resEmDe[0].__data.foodAllow
@@ -440,7 +453,10 @@ module.exports = function (PayrollMaster) {
             let department = resEmDe[0].__data.department
             let subDept = resEmDe[0].__data.subDept
             let salary = resEmDe[0].__data.salary
+<<<<<<< HEAD
             let pension = salary * 0.07
+=======
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             let totalSalary = resEmDe[0].__data.totalSalary
             let overtime = resEmDe[0].__data.overtime
             let prfrm = resEmDe[0].__data.prfrm
@@ -474,6 +490,16 @@ module.exports = function (PayrollMaster) {
             let perDaySalary = salary / workeDay
             let workedSalary = perDaySalary * workedDays
 
+<<<<<<< HEAD
+=======
+            // Over time payment
+            // Gross earning
+            // Taxable Earnings
+            // Income tax
+            // Total deduction
+            // Net salary
+
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             //THis from payrollMaster
             let payback = resPaMa[p].__data.payback
             let advancedRecievable = resPaMa[p].__data.advancedRecievable
@@ -481,6 +507,7 @@ module.exports = function (PayrollMaster) {
             let miscPayment = resPaMa[p].__data.miscPayment
 
             let overTimeDays = 0
+<<<<<<< HEAD
             //fetch overTimeDays
             for (let o = 0; o < resPaMa[p].__data.overtime.length; o++) {
               overTimeDays += parseFloat(resPaMa[p].__data.overtime[o].value)
@@ -507,14 +534,26 @@ module.exports = function (PayrollMaster) {
               perDaySalary, workedSalary, overTimeDays, payback, advancedRecievable, penality,
               miscPayment, pension
             })
+=======
+            //featch oberTimeDays
+            for (let o = 0; o < resPaMa[p].__data.overtime.length; o++) {
+              overTimeDays += parseFloat(resPaMa[p].__data.overtime[o].value)
+            }
+
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             if (p === resPaMa.length - 1) {
               cb(null, data)
             }
           },
         )
+<<<<<<< HEAD
       }
       if (resPaMa.length === 0) {
          cb(null, data)
+=======
+
+        data.push({ idno, fullName })
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
       }
     })
   }
@@ -921,4 +960,8 @@ module.exports = function (PayrollMaster) {
       path: '/summarySheet',
     },
   })
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
