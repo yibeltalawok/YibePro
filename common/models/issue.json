@@ -21,22 +21,53 @@
     "state": {
       "type": "string"
     },
+    "state1": {
+      "type": "string"
+    },
+    "state2": {
+      "type": "string"
+    },
+    "state3": {
+      "type": "string"
+    },
     "reason": {
       "type": "string"
     },
     "issueDate": {
-      "type": "string"
+      "type": "date"
     },
-    "approvedDate": {
-      "type": "string"
+    "storeManaDate": {
+      "type": "date",
+      "default": null
+    },
+    "financeDate": {
+      "type": "date",
+      "default": null
+    },
+    "generalManadate": {
+      "type": "date",
+      "default": null
+    },
+    "storeDate": {
+      "type": "date",
+      "default": null
     },
     "items": {
       "type": []
     },
-    "issueSignature": {
+    "storeManagerSignature": {
       "type": "string"
     },
-    "storeAdminSignature": {
+    "financeSignature": {
+      "type": "string"
+    },
+    "generalManagerSignature": {
+      "type": "string"
+    },
+    "storeSignature": {
+      "type": "string"
+    },
+    "issueSignature": {
       "type": "string"
     }
   },
@@ -58,7 +89,7 @@
         "nestRemoting": true
       }
     },
-    "issuedBy": {
+    "storeManager": {
       "type": "belongsTo",
       "model": "UserAccount",
       "foreignKey": "",
@@ -66,7 +97,31 @@
         "nestRemoting": true
       }
     },
-    "approvedBy": {
+    "finance": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "generalManager": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "stockKeeper": {
+      "type": "belongsTo",
+      "model": "UserAccount",
+      "foreignKey": "",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "issuedBy": {
       "type": "belongsTo",
       "model": "UserAccount",
       "foreignKey": "",
