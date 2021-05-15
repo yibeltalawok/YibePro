@@ -39,7 +39,7 @@
     "employee": {
       "type": "belongsTo",
       "model": "Employee",
-      "foreignKey": "",
+      "foreignKey": "employeeId",
       "options": {
         "nestRemoting": true
       }
@@ -47,7 +47,7 @@
     "overtime": {
       "type": "hasMany",
       "model": "OverTime",
-      "foreignKey": "",
+      "foreignKey": "payrollId",
       "options": {
         "nestRemoting": true
       }
