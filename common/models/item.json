@@ -42,7 +42,8 @@
       "type": "string"
     },
     "materialStatus": {
-      "type": "string"
+      "type": "string",
+      "default": "Available"
     },
     "GRNno": {
       "type": "string"
