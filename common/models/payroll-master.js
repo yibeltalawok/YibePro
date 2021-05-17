@@ -1,393 +1,13 @@
 'use strict'
 module.exports = function (PayrollMaster) {
-  PayrollMaster.payrollCalculation = function (date, cb) {
-    try {
-      let da = new Date(date)
-      let filter = { include: ['employee'] }
-      let month = da.getMonth() + 1
-      let year = da.getFullYear()
-      let days = 0
-      const { Attendance } = PayrollMaster.app.models
-      const { OverTime } = PayrollMaster.app.models
-      if (month == new Date().getMonth() + 1) {
-        days = new Date().getDate()
-      } else {
-        if (
-          month == 1 ||
-          month == 3 ||
-          month == 5 ||
-          month == 7 ||
-          month == 8 ||
-          month == 10 ||
-          month == 12
-        ) {
-          days = 31
-        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-          days = 30
-        } else {
-          days = 28
-        }
-      }
-      PayrollMaster.find(filter, (err, res) => {
-        if (res.length > 0) {
-          let item = []
-          for (let i = 0; i < res.length; i++) {
-            let attendance = []
-            for (let j = 1; j <= days; j++) {
-              let currentMonth = new Date()
-              currentMonth.setMonth(parseInt(month) - 1)
-              currentMonth.setDate(j)
-              // currentMonth.getDay() == 0 ? noOfSundays += 1 : "A"
-              attendance.push({ value: currentMonth.getDay() == 0 ? 'P' : 'A' })
-            }
-            item.push({
-              idno: res[i].__data.employee.idno,
-              fullName: res[i].__data.employee.fullName,
-              department: res[i].__data.employee.department,
-              joiningDate: res[i].__data.employee.joiningDate,
-              position: res[i].__data.employee.position,
-              salary: res[i].__data.employee.salary,
-              id: res[i].__data.id,
-              attendance: attendance,
-              employeeId: res[i].__data.employee.id,
-            })
-            if (item.length == res.length) {
-              manageAttendance(item)
-            }
-          }
-        } else {
-          cb(null, [])
-        }
-      })
-      const manageAttendance = async function (item) {
-        for (let i = 0; i < item.length; i++) {
-          getAttendance(item[i].employeeId)
-            .then((result) => {
-              if (result.length > 0) {
-                for (let a = 0; a < result.length; a++) {
-                  let d = new Date(result[a].dateAttended)
-
-                  if (d.getDate() <= days) {
-                    item[i].attendance[d.getDate() - 1].value = result[a].value
-                  }
-                }
-              }
-              if (i == item.length - 1) {
-                calculateAttendance(item)
-                // cb(null, item)
-              }
-            })
-            .catch((e) => {
-              console.log(e)
-            })
-        }
-      }
-      const calculateAttendance = async function (item) {
-        let totalP = []
-        let totalA = []
-        let totalPr = []
-        let totalDL = []
-        let totalML = []
-        let totalPL = []
-        let totalAL = []
-        let totalMGL = []
-        let totalHLA = []
-        let totalHLPr = []
-        let totalSL = []
-        let totalSpecialL = []
-        let totalLate = []
-        let totalFL = []
-        let workingDays = []
-        for (let i = 0; i < item.length; i++) {
-          totalP[i] = 0
-          totalA[i] = 0
-          totalPr[i] = 0
-          totalDL[i] = 0
-          totalML[i] = 0
-          totalPL[i] = 0
-          totalAL[i] = 0
-          totalMGL[i] = 0
-          totalHLA[i] = 0
-          totalHLPr[i] = 0
-          totalSL[i] = 0
-          totalSpecialL[i] = 0
-          totalLate[i] = 0
-          totalFL[i] = 0
-          workingDays[i] = 0
-          let result = item[i].attendance
-          for (let j = 0; j < result.length; j++) {
-            if (result[j].value == 'P') {
-              totalP[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'A') {
-              totalA[i] += 1
-            }
-            if (result[j].value == 'Pr') {
-              totalPr[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'AL') {
-              totalAL[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'MOL') {
-              totalDL[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'HLPR') {
-              totalHLPr[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'HLA') {
-              totalHLA[i] += 1
-              workingDays[i] += 0.5
-            }
-            if (result[j].value == 'MGL') {
-              totalMGL[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'ML') {
-              totalML[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'PL') {
-              totalML[i] += 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'SL') {
-              totalSL[i] += 1
-              workingDays[i] += parseFloat(result[j].slValue)
-            }
-            if (result[j].value == 'LeM') {
-              totalLate[i] += 1
-              workingDays[i] +=
-                1 - (parseFloat(result[j].lateMinutes) / 480).toFixed(2)
-            }
-            if (result[j].value == 'FL') {
-              totalFL[i] = 1
-              workingDays[i] += 1
-            }
-            if (result[j].value == 'Special L') {
-              totalSpecialL[i] = 1
-            }
-          }
-          if (i == item.length - 1) {
-            manageData(
-              item,
-              totalP,
-              totalA,
-              totalPr,
-              totalDL,
-              totalML,
-              totalPL,
-              totalAL,
-              totalMGL,
-              totalHLA,
-              totalHLPr,
-              totalSL,
-              totalSpecialL,
-              totalLate,
-              totalFL,
-              workingDays,
-            )
-          }
-        }
-      }
-
-      const manageData = async function (
-        item,
-        totalP,
-        totalA,
-        totalPr,
-        totalDL,
-        totalML,
-        totalPL,
-        totalAL,
-        totalMGL,
-        totalHLA,
-        totalHLPr,
-        totalSL,
-        totalSpecialL,
-        totalLate,
-        totalFL,
-        workingDays,
-      ) {
-        let otHr125 = []
-        let otHr15 = []
-        let otHr20 = []
-        let otHr25 = []
-        let otDays = []
-        for (let i = 0; i < item.length; i++) {
-          otHr125[i] = 0
-          otHr15[i] = 0
-          otHr20[i] = 0
-          otHr25[i] = 0
-          otDays[i] = 0
-          getOvertime(item[i].id)
-            .then((time) => {
-              if (time.length > 0) {
-                // console.log(time[0].__data.type)
-                for (let j = 0; j < time.length; j++) {
-                  // console.log(time[j].__data.type)
-                  if (time[j].__data.type == 'Normal Day') {
-                    otHr125[i] += parseFloat(time[j].__data.value)
-                  } else if (time[i].__data.type == 'Night time') {
-                    otHr15[i] += parseFloat(time[j].__data.value)
-                  } else if (time[j].__data.type == 'Rest Day') {
-                    otHr20[i] += parseFloat(time[j].__data.value)
-                  } else if (time[j].__data.type == 'Public Holly Day') {
-                    otHr25[i] += parseFloat(time[j].__data.value)
-                  }
-                  if (time.length - 1 == j) {
-                    otDays[i] =
-                      (parseFloat(otHr125[i]) +
-                        parseFloat(otHr15[i]) +
-                        parseFloat(otHr20[i]) +
-                        parseFloat(otHr25[i])) /
-                      8
-                  }
-                }
-              }
-              if (i == item.length - 1) {
-                assignToTable(
-                  item,
-                  totalP,
-                  totalA,
-                  totalPr,
-                  totalDL,
-                  totalML,
-                  totalPL,
-                  totalAL,
-                  totalMGL,
-                  totalHLA,
-                  totalHLPr,
-                  totalSL,
-                  totalSpecialL,
-                  totalLate,
-                  totalFL,
-                  workingDays,
-                  otHr125,
-                  otHr15,
-                  otHr20,
-                  otHr25,
-                  otDays,
-                )
-              }
-            })
-            .catch((e) => {
-              console.log(e)
-            })
-        }
-      }
-      const assignToTable = async function (
-        item,
-        totalP,
-        totalA,
-        totalPr,
-        totalDL,
-        totalML,
-        totalPL,
-        totalAL,
-        totalMGL,
-        totalHLA,
-        totalHLPr,
-        totalSL,
-        totalSpecialL,
-        totalLate,
-        totalFL,
-        workingDays,
-        otHr125,
-        otHr15,
-        otHr20,
-        otHr25,
-        otDays,
-      ) {
-        let tableValue = []
-        for (let i = 0; i < item.length; i++) {
-          tableValue.push({
-            idno: item[i].idno,
-            fullName: item[i].fullName,
-            department: item[i].department,
-            joiningDate: item[i].joiningDate,
-            position: item[i].position,
-            salary: item[i].salary,
-            totalA: totalA[i],
-            totalP: totalP[i],
-            totalPr: totalPr[i],
-            totalDL: totalDL[i],
-            totalML: totalML[i],
-            totalPL: totalPL[i],
-            totalMGL: totalMGL[i],
-            totalSL: totalSL[i],
-            totalFL: totalFL[i],
-            totalSpecialL: totalSpecialL[i],
-            totalAL: totalAL[i],
-            totalHLPr: totalHLPr[i],
-            totalHLA: totalHLA[i],
-            totalLate: totalLate[i],
-            workingDays: workingDays[i].toFixed(2),
-            otHr125: otHr125[i],
-            otHr15: otHr15[i],
-            otHr20: otHr20[i],
-            otHr25: otHr25[i],
-            totalOtDays: otDays[i],
-          })
-          if (item.length - 1 == i) {
-            cb(null, tableValue)
-          }
-        }
-      }
-      const getOvertime = async function (payrollId) {
-        let f = {
-          where: { payrollId: payrollId, month: month, year: year },
-        }
-        let ot = await OverTime.find(f)
-        return Promise.resolve(ot)
-      }
-      const getAttendance = async function (empId) {
-        let value = await Attendance.find({
-          where: { month: month, year: year, employeeId: empId },
-        })
-        return Promise.resolve(value)
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-  PayrollMaster.remoteMethod('payrollCalculation', {
-    description: 'Finance report',
-    accepts: [
-      {
-        arg: 'date',
-        type: 'string',
-        required: true,
-      },
-    ],
-
-    returns: {
-      type: ['object'],
-      root: true,
-    },
-
-    http: {
-      verb: 'post',
-      path: '/payrollCalculation',
-    },
-  })
-
   let getEmployeeDetaile = async function (employeeId, date) {
     const { Employee } = PayrollMaster.app.models
     var filter = {
       include: {
         relation: 'attendances',
         scope: { where: { dateAttended: { like: date } } },
-<<<<<<< HEAD
       }, 
       where: {id: employeeId}
-=======
-      },
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
     }
 
     return Promise.resolve(await Employee.find(filter))
@@ -397,7 +17,16 @@ module.exports = function (PayrollMaster) {
     const { Attendance } = PayrollMaster.app.models
     const { OverTime } = PayrollMaster.app.models
     const { WorkDay } = PayrollMaster.app.models
-
+    const { TaxSlab } = PayrollMaster.app.models
+    let salary = 3000
+    await TaxSlab.find({
+      where: {
+        and: [
+          { initial: { lte: salary } },
+          { end: { gte: salary } },
+        ],
+      },
+    }).then(res => console.log(res[0].__data.deduction));
     var data = []
     var reportMonth = date.toString().substr(0, 7)
     var workeDay = await WorkDay.find({
@@ -420,30 +49,21 @@ module.exports = function (PayrollMaster) {
     }
 
     await PayrollMaster.find(filter).then((resPaMa) => {
-<<<<<<< HEAD
       console.log((resPaMa));
       for (let p = 0; p < resPaMa.length; p++) {
         getEmployeeDetaile(resPaMa[p].__data.employeeId, reportMonth).then(
-          (resEmDe) => {
+         async (resEmDe) => {
             // {
             //   fullName, idno, department, position, salary, responseAllow, 
             //   absentIncentive, taxableHomeAllow, nonTaxableHomeAllow, taxableProfAllow,
             //   nonTaxableProfAllow, positionalAllow, foodAllow, mobileAllow, incentiveSalary
             //   labourContribution, womanUnion, creditAssociation, costSharing, workedDays
             // }
-=======
-      for (let p = 0; p < resPaMa.length; p++) {
-        getEmployeeDetaile(resPaMa[p].__data.employeeId, reportMonth).then(
-          (resEmDe) => {
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             let idno = resEmDe[0].__data.idno
             let incentiveSalary = resEmDe[0].__data.incentiveSalary
             let fullName = resEmDe[0].__data.fullName
             let positionalAllow = resEmDe[0].__data.positionalAllow
-<<<<<<< HEAD
             let position = resEmDe[0].__data.position
-=======
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             let bankAccountNum = resEmDe[0].__data.bankAccountNum
             let mobileAllow = resEmDe[0].__data.mobileAllow
             let foodAllow = resEmDe[0].__data.foodAllow
@@ -453,10 +73,7 @@ module.exports = function (PayrollMaster) {
             let department = resEmDe[0].__data.department
             let subDept = resEmDe[0].__data.subDept
             let salary = resEmDe[0].__data.salary
-<<<<<<< HEAD
             let pension = salary * 0.07
-=======
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             let totalSalary = resEmDe[0].__data.totalSalary
             let overtime = resEmDe[0].__data.overtime
             let prfrm = resEmDe[0].__data.prfrm
@@ -490,16 +107,6 @@ module.exports = function (PayrollMaster) {
             let perDaySalary = salary / workeDay
             let workedSalary = perDaySalary * workedDays
 
-<<<<<<< HEAD
-=======
-            // Over time payment
-            // Gross earning
-            // Taxable Earnings
-            // Income tax
-            // Total deduction
-            // Net salary
-
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             //THis from payrollMaster
             let payback = resPaMa[p].__data.payback
             let advancedRecievable = resPaMa[p].__data.advancedRecievable
@@ -507,7 +114,6 @@ module.exports = function (PayrollMaster) {
             let miscPayment = resPaMa[p].__data.miscPayment
 
             let overTimeDays = 0
-<<<<<<< HEAD
             //fetch overTimeDays
             for (let o = 0; o < resPaMa[p].__data.overtime.length; o++) {
               overTimeDays += parseFloat(resPaMa[p].__data.overtime[o].value)
@@ -515,11 +121,20 @@ module.exports = function (PayrollMaster) {
             // Over time payment
             let OverTimePayment = perDaySalary * overTimeDays
             // Gross earning
-            let grossEarning = workedSalary + OverTimePayment 
+            let grossEarning = workedSalary + OvertimePayment + responseAllow + homeAllow + positionalAllow 
+            + profAllow + absentIncentive + ironIncentive + foodAllow + mobileAllow + incentiveSalary + miscPayment + payback
             // Taxable Earnings
             let taxableEarning = workedSalary + taxableHomeAllow + taxableProfAllow
             // Income tax
-            let incomeTax = 0
+            let incomeTax = await TaxSlab.find({
+              where: {
+                and: [
+                  { initial: { lte: taxableEarning } },
+                  { end: { gte: taxableEarning } },
+                ],
+              },
+            }).then(res => ((taxableEarning * res[0].__data.deduction/ 100) - res[0].__data.extraDeduction)).catch(err => console.log(err));
+           
             // Total deduction
             let totalDeduction = incomeTax + pension + advancedRecievable + labourContribution + costSharing + penality
             // Net salary
@@ -532,37 +147,25 @@ module.exports = function (PayrollMaster) {
               nonTaxableProfAllow, positionalAllow, foodAllow, mobileAllow, incentiveSalary,
               labourContribution, womanUnion, creditAssociation, costSharing, workedDays,
               perDaySalary, workedSalary, overTimeDays, payback, advancedRecievable, penality,
-              miscPayment, pension
+              miscPayment, pension, incomeTax, taxableEarning, medicationDeduction
             })
-=======
-            //featch oberTimeDays
-            for (let o = 0; o < resPaMa[p].__data.overtime.length; o++) {
-              overTimeDays += parseFloat(resPaMa[p].__data.overtime[o].value)
-            }
-
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
             if (p === resPaMa.length - 1) {
               cb(null, data)
             }
           },
         )
-<<<<<<< HEAD
       }
       if (resPaMa.length === 0) {
          cb(null, data)
-=======
-
-        data.push({ idno, fullName })
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
       }
     })
   }
 
-  PayrollMaster.finaceReport = function (date, cb) {
+  PayrollMaster.financeReport = function (date, cb) {
     getPayrollMasterList(date, cb)
   }
 
-  PayrollMaster.remoteMethod('finaceReport', {
+  PayrollMaster.remoteMethod('financeReport', {
     description: 'Finance report',
     accepts: [
       {
@@ -579,7 +182,7 @@ module.exports = function (PayrollMaster) {
 
     http: {
       verb: 'post',
-      path: '/finaceReport',
+      path: '/financeReport',
     },
   })
   PayrollMaster.deleteAll = (cb) => {
@@ -960,8 +563,4 @@ module.exports = function (PayrollMaster) {
       path: '/summarySheet',
     },
   })
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 4bd4a0a4345cd0de7e93b0d1e76defef99c79209
