@@ -121,7 +121,7 @@ module.exports = function (PayrollMaster) {
             // Over time payment
             let OverTimePayment = perDaySalary * overTimeDays
             // Gross earning
-            let grossEarning = workedSalary + OvertimePayment + responseAllow + homeAllow + positionalAllow 
+            let grossEarning = workedSalary + OverTimePayment + responseAllow + homeAllow + positionalAllow 
             + profAllow + absentIncentive + ironIncentive + foodAllow + mobileAllow + incentiveSalary + miscPayment + payback
             // Taxable Earnings
             let taxableEarning = workedSalary + taxableHomeAllow + taxableProfAllow
@@ -140,14 +140,14 @@ module.exports = function (PayrollMaster) {
             // Net salary
             let netSalary = grossEarning - totalDeduction
 
-
             data.push({
               fullName, idno, department, position, salary, responseAllow, 
-              absentIncentive, taxableHomeAllow, nonTaxableHomeAllow, taxableProfAllow,
+              absentIncentive, homeAllow, taxableHomeAllow, nonTaxableHomeAllow, profAllow, taxableProfAllow,
               nonTaxableProfAllow, positionalAllow, foodAllow, mobileAllow, incentiveSalary,
               labourContribution, womanUnion, creditAssociation, costSharing, workedDays,
               perDaySalary, workedSalary, overTimeDays, payback, advancedRecievable, penality,
-              miscPayment, pension, incomeTax, taxableEarning, medicationDeduction
+              miscPayment, pension, incomeTax, taxableEarning, medicationDeduction, grossEarning,
+              profAllow, homeAllow, netSalary, ironIncentive, bankAccountNum, totalDeduction
             })
             if (p === resPaMa.length - 1) {
               cb(null, data)
