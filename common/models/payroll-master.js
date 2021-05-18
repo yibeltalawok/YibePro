@@ -121,11 +121,7 @@ module.exports = function (PayrollMaster) {
             // Over time payment
             let OverTimePayment = perDaySalary * overTimeDays
             // Gross earning
-<<<<<<< HEAD
-            let grossEarning = workedSalary + OverTimePayment + responseAllow + homeAllow + positionalAllow 
-=======
             let grossEarning = workedSalary + OvertimePayment + responseAllow + homeAllow + positionalAllow 
->>>>>>> 2baa9e5bd14893e42a618d08e1fd9269d44e57e8
             + profAllow + absentIncentive + ironIncentive + foodAllow + mobileAllow + incentiveSalary + miscPayment + payback
             // Taxable Earnings
             let taxableEarning = workedSalary + taxableHomeAllow + taxableProfAllow
@@ -150,12 +146,8 @@ module.exports = function (PayrollMaster) {
               nonTaxableProfAllow, positionalAllow, foodAllow, mobileAllow, incentiveSalary,
               labourContribution, womanUnion, creditAssociation, costSharing, workedDays,
               perDaySalary, workedSalary, overTimeDays, payback, advancedRecievable, penality,
-<<<<<<< HEAD
               miscPayment, pension, incomeTax, taxableEarning, medicationDeduction, grossEarning,
               profAllow, homeAllow, netSalary, ironIncentive, bankAccountNum, totalDeduction
-=======
-              miscPayment, pension, incomeTax, taxableEarning, medicationDeduction
->>>>>>> 2baa9e5bd14893e42a618d08e1fd9269d44e57e8
             })
             if (p === resPaMa.length - 1) {
               cb(null, data)
@@ -571,8 +563,4 @@ module.exports = function (PayrollMaster) {
       path: '/summarySheet',
     },
   })
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 2baa9e5bd14893e42a618d08e1fd9269d44e57e8
