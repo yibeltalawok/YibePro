@@ -15,12 +15,6 @@
     "date": {
       "type": "date"
     },
-    "month": {
-      "type": "string"
-    },
-    "year": {
-      "type": "string"
-    },
     "type": {
       "type": "string"
     },

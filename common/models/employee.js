@@ -77,7 +77,7 @@ module.exports = function (Employee) {
             path: "/deleteEmployee"
         }
     });
-    //QR Codeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+    //QR Code
     Employee.printQrCode = async (
         value,
         name
